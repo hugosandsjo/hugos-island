@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83aec2fdf3abeece88e0c8f05c3270f2",
+    "content-hash": "e54eb12fe6af0e803f912bc0030d16e6",
     "packages": [
+        {
+            "name": "benhall14/php-calendar",
+            "version": "1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benhall14/php-calendar.git",
+                "reference": "9c24a2db27212cfc541d81225c74278f2d75cb15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benhall14/php-calendar/zipball/9c24a2db27212cfc541d81225c74278f2d75cb15",
+                "reference": "9c24a2db27212cfc541d81225c74278f2d75cb15",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "benhall14\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Hall",
+                    "email": "ben@conobe.co.uk",
+                    "homepage": "https://github.com/benhall14",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple PHP class to generate calendars.",
+            "homepage": "https://github.com/benhall14/php-calendar",
+            "keywords": [
+                "calendar",
+                "calendars",
+                "date",
+                "time"
+            ],
+            "support": {
+                "issues": "https://github.com/benhall14/php-calendar/issues",
+                "source": "https://github.com/benhall14/php-calendar/tree/1.4.4"
+            },
+            "time": "2023-11-29T16:34:12+00:00"
+        },
         {
             "name": "graham-campbell/result-type",
             "version": "v1.1.2",
