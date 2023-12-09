@@ -1,8 +1,10 @@
 <?php
-// declare strict types
+// declare(strict_types=1);
 declare(strict_types=1);
-//require autoload
+//require autoload guzzle
 require 'vendor/autoload.php';
+// require autoload app
+require 'app/autoload.php';
 
 
 //guzzle
@@ -18,7 +20,6 @@ new Client(['base_uri' => 'https://www.yrgopelag.se/centralbank/']);
 //     ]
 // ]);
 
-
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -26,6 +27,38 @@ $dotenv->load();
 // echo $_ENV['API_KEY'];
 
 // header('Content-Type: application/json');
+
+
+$database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
+$statement = $database->prepare('SELECT * FROM rooms');
+$statement->execute();
+while ($row = $statement->fetchObject()) {
+    echo $row->room_class . "<br>";
+}
+
+// Form logic
+if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
+    // Trimming and sanitizing
+    $firstname = htmlspecialchars(str_replace(' ', '', trim($_POST['firstname'])));
+    $lastname = htmlspecialchars(str_replace(' ', '', trim($_POST['lastname'])));
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+
+    if ($email === '') {
+        $errors[] = 'The email field is missing.';
+    } else {
+
+        $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
+        $statement = $database->prepare('INSERT INTO guests (firstname, lastname, email) VALUES (:firstname, :lastname, :email)');
+        $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
+        $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->execute();
+
+        echo $firstname . '<br>';
+        echo $lastname . '<br>';
+        echo $email . '<br>';
+    }
+}
 
 
 ?>
@@ -45,11 +78,10 @@ $dotenv->load();
     <main>
         <section class="hero">
             <h1>Hugos island</h1>
-            <form>
-                <input type="text" name="name" placeholder="Name">
-                <input type="text" name="surname" placeholder="Surname">
+            <form action="index.php" method="post">
+                <input type="text" name="firstname" placeholder="Name">
+                <input type="text" name="lastname" placeholder="Surname">
                 <input type="text" name="email" placeholder="Email">
-                <!-- <input type="date" id="start" name="stay-start" value="2024-01-01" min="2024-01-01" max="2024-01-31" /> -->
                 <select name="room-type">
                     <option value="budget">Budget</option>
                     <option value="standard">Standard</option>
