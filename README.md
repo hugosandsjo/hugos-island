@@ -1,4 +1,6 @@
-![Alt Text](https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif width="400px" height="50px")
+![Alt Text](https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif)
+
+<img src="https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif" width="40" height="40" />
 
 # Florida
 
