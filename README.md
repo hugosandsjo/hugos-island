@@ -1,6 +1,6 @@
 WHY NOT A GIF HERE? TO SET THE MOOD.
 
-[<iframe src="https://giphy.com/embed/l0IsHpdbT4EX8wOgU" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/a24-the-florida-project-l0IsHpdbT4EX8wOgU">via GIPHY</a></p>](https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif)
+
 
 # Florida
 
