@@ -1,6 +1,6 @@
 WHY NOT A GIF HERE? TO SET THE MOOD.
 
-
+![Alt Text] (https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif)
 
 # Florida
 
