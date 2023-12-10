@@ -55,9 +55,19 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->execute();
 
-        echo $firstname . '<br>';
-        echo $lastname . '<br>';
-        echo $email . '<br>';
+        // Get the last inserted guest_id to use in the booking table
+        $lastGuestId = $database->lastInsertId();
+        $hotelId = 1;
+
+        $statement = $database->prepare('INSERT INTO booking (arrival, departure, guest_id, hotel_id) VALUES (:arrival, :departure, :guest_id, :hotel_id)');
+        $statement->bindParam(':arrival', $arrival, PDO::PARAM_STR);
+        $statement->bindParam(':departure', $departure, PDO::PARAM_STR);
+        $statement->bindParam(':guest_id', $lastGuestId, PDO::PARAM_INT);
+        $statement->bindParam(':hotel_id', $hotelId, PDO::PARAM_INT);
+        $statement->execute();
+
+
+        echo "Congratulations $firstname $lastname, you have booked a room at Hugos Island from $arrival to $departure";
     }
 }
 
@@ -75,10 +85,15 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
 </head>
 
 <body>
-
+    <header>
+        <h1>Hugos island</h1>
+    </header>
     <main>
         <section class="hero">
-            <h1>Hugos island</h1>
+
+            <div class="calendar-wrapper">
+                <?php require __DIR__ . '/calendar.php'; ?>
+            </div>
             <form action="index.php" method="post">
                 <input type="text" name="firstname" placeholder="Name">
                 <input type="text" name="lastname" placeholder="Lastname">
@@ -91,7 +106,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
                 <input type="text" id="arrival" name="arrival" placeholder="Arrival">
                 <input type="text" id="departure" name="departure" placeholder="Departure">
 
-                <?php require __DIR__ . '/calendar.php'; ?>
                 <button type="submit">Send</button>
             </form>
 
