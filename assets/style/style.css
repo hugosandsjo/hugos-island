@@ -28,3 +28,21 @@ form {
   color: rgb(0, 0, 0) !important;
   width: 100% !important;
 }
+
+.mask,
+.mask-start,
+.mask-end {
+  background-color: rgb(255, 162, 205) !important;
+  cursor: default !important;
+}
+
+.date-selected-start,
+.date-selected-end,
+.date-selected {
+  background-color: rosybrown;
+}
+
+.day:hover {
+  background-color: rgb(112, 255, 80);
+  cursor: pointer;
+}
