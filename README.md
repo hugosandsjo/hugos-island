@@ -1,10 +1,12 @@
 WHY NOT A GIF HERE? TO SET THE MOOD.
 
-# Island name
+https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif
+
+# Florida
 
 Some text about your lovely island
 
-# Hotel name
+# Florida project
 
 Why not add some info about the hotel of your dreams?
 
