@@ -1,6 +1,3 @@
-![Alt Text](https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif)
-
-<img src="https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif" width="700" height="350" />
 
 # Florida
 
@@ -9,6 +6,7 @@ Some text about your lovely island
 # Florida project
 
 Why not add some info about the hotel of your dreams?
+<img src="https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif" width="700" height="350" />
 
 # Instructions
 
