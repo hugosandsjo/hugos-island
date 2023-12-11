@@ -16,35 +16,51 @@ function addBookingsToEvents()
     $statement->execute();
     $bookings = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // Starting occupied
-    $occupied = [];
-    // Initialize the events array
-    $events = [];
+    $occupied = [];  // Initialize the occupied array
+    $events = [];  // Initialize the events array
+    $errorMessage = null; // Variable to store the error message
 
     // Check to see if 
+    $errorMessage = null; // Variable to store the error message
+
     foreach ($bookings as $booking) {
         $start = $booking['arrival'];
         $end = $booking['departure'];
-        $end = date('Y-m-d', strtotime($end . ' +1 day')); // Add one day to the end date
+        $endPlusOne = date('Y-m-d', strtotime($end . ' +1 day')); // Add one day to the end date
         $interval = new DateInterval('P1D');
-        $period = new DatePeriod(new DateTime($start), $interval, new DateTime($end));
+        $period = new DatePeriod(new DateTime($start), $interval, new DateTime($endPlusOne));
+
+        $tempOccupied = []; // Temporary array to hold the dates for this booking
+        $bookingConflict = false; // Flag to track if there's a booking conflict
+
         foreach ($period as $date) {
             $bookedDate = $date->format('Y-m-d');
 
             if (!in_array($bookedDate, $occupied)) {
-                $occupied[] = $bookedDate;
-                $events[] = [
-                    'start' => $start,
-                    'end' => $end,
-                    'summary' => '',
-                    'mask' => true,
-                    'classes' => ['booked']
-                ];
+                $tempOccupied[] = $bookedDate; // Add the date to the temporary array
             } else {
-                echo "Sorry already booked";
-                break 2;
+                $errorMessage = "Sorry already booked"; // Store the error message in the variable
+                $bookingConflict = true; // Set the flag to true
+                break;
             }
         }
+
+        // If the booking was successful, add the dates from the temporary array to the occupied array
+        if (!$bookingConflict) {
+            $occupied = array_merge($occupied, $tempOccupied);
+
+            $events[] = [
+                'start' => $start,
+                'end' => $end, // Use the original end date here
+                'summary' => '',
+                'mask' => true,
+                'classes' => ['booked']
+            ];
+        }
+    }
+
+    if ($errorMessage) {
+        echo $errorMessage; // Echo the error message if it is set
     }
 
     // Just a check to see the values in the $occupied-array
