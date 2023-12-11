@@ -7,16 +7,7 @@ use benhall14\phpCalendar\Calendar as Calendar;
 // Create a new calendar
 $calendar = new Calendar();
 
-// $events = array();
-
-// $events[] = array(
-//     'start' => '2024-01-14',
-//     'end' => '2024-01-18',
-//     'summary' => '',
-//     'mask' => true,
-//     'classes' => ['booked']
-// );
-
+// function to add a booking to the events array and get displayed on the calender 
 function addBookingsToEvents()
 {
     // Connect to the database
@@ -25,61 +16,47 @@ function addBookingsToEvents()
     $statement->execute();
     $bookings = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+    // Starting occupied
+    $occupied = [];
     // Initialize the events array
     $events = [];
 
-    // Add each booking to the events array
+    // Check to see if 
     foreach ($bookings as $booking) {
-        $events[] = [
-            'start' => $booking['arrival'],
-            'end' => $booking['departure'],
-            'summary' => '',
-            'mask' => true,
-            'classes' => ['booked']
-        ];
+        $start = $booking['arrival'];
+        $end = $booking['departure'];
+        $end = date('Y-m-d', strtotime($end . ' +1 day')); // Add one day to the end date
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod(new DateTime($start), $interval, new DateTime($end));
+        foreach ($period as $date) {
+            $bookedDate = $date->format('Y-m-d');
+
+            if (!in_array($bookedDate, $occupied)) {
+                $occupied[] = $bookedDate;
+                $events[] = [
+                    'start' => $start,
+                    'end' => $end,
+                    'summary' => '',
+                    'mask' => true,
+                    'classes' => ['booked']
+                ];
+            } else {
+                echo "Sorry already booked";
+                break 2;
+            }
+        }
+    }
+
+    // Just a check to see the values in the $occupied-array
+    foreach ($occupied as $date) {
+        echo $date . '<br>';
     }
 
     return $events;
 }
 
-// $dates = [
-//     '2024-01-01',
-//     '2024-01-02',
-//     '2024-01-03',
-//     '2024-01-04',
-//     '2024-01-05',
-//     '2024-01-06',
-//     '2024-01-07',
-//     '2024-01-08',
-//     '2024-01-09',
-//     '2024-01-10',
-//     '2024-01-11',
-//     '2024-01-12',
-//     '2024-01-13',
-//     '2024-01-14',
-//     '2024-01-15',
-//     '2024-01-16',
-//     '2024-01-17',
-//     '2024-01-18',
-//     '2024-01-19',
-//     '2024-01-20',
-//     '2024-01-21',
-//     '2024-01-22',
-//     '2024-01-23',
-//     '2024-01-24',
-//     '2024-01-25',
-//     '2024-01-26',
-//     '2024-01-27',
-//     '2024-01-28',
-//     '2024-01-29',
-//     '2024-01-30',
-//     '2024-01-31',
-// ];
-
 // Use the function
 $events = addBookingsToEvents();
-
-// print_r($events);
 
 // Add the events to the calendar
 $calendar->addEvents($events);

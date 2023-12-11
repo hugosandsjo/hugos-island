@@ -7,7 +7,7 @@ require 'vendor/autoload.php';
 require 'app/autoload.php';
 
 
-//guzzle
+//Start guzzle
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -28,16 +28,8 @@ $dotenv->load();
 
 // header('Content-Type: application/json');
 
-
-// $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
-// $statement = $database->prepare('SELECT * FROM rooms');
-// $statement->execute();
-// while ($row = $statement->fetchObject()) {
-//     echo $row->room_class . "<br>";
-// }
-
 // Form logic
-if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
+if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'])) {
     // Trimming and sanitizing
     $firstname = htmlspecialchars(str_replace(' ', '', trim($_POST['firstname'])));
     $lastname = htmlspecialchars(str_replace(' ', '', trim($_POST['lastname'])));
@@ -59,7 +51,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
         $lastGuestId = $database->lastInsertId();
         $hotelId = 1;
 
-        $statement = $database->prepare('INSERT INTO booking (arrival, departure, guest_id, hotel_id) VALUES (:arrival, :departure, :guest_id, :hotel_id)');
+        $statement = $database->prepare('INSERT INTO bookings (arrival, departure, guest_id, hotel_id) VALUES (:arrival, :departure, :guest_id, :hotel_id)');
         $statement->bindParam(':arrival', $arrival, PDO::PARAM_STR);
         $statement->bindParam(':departure', $departure, PDO::PARAM_STR);
         $statement->bindParam(':guest_id', $lastGuestId, PDO::PARAM_INT);
@@ -67,7 +59,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
         $statement->execute();
 
 
-        echo "Congratulations $firstname $lastname, you have booked a room at Hugos Island from $arrival to $departure";
+        // echo "Congratulations $firstname $lastname, you have booked a room at Hugos Island from $arrival to $departure";
     }
 }
 
@@ -106,7 +98,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'])) {
                 <input type="text" id="arrival" name="arrival" placeholder="Arrival">
                 <input type="text" id="departure" name="departure" placeholder="Departure">
 
-                <button type="submit">Send</button>
+                <button type="submit">Book</button>
             </form>
 
 
