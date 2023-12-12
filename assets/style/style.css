@@ -1,5 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --purple: #9360ff;
+}
+
 * {
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Vollkorn', serif;
+  color: white;
+  margin: 0;
+  font-size: 16px;
+  background-color: var(--purple);
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
 }
 
 header {
@@ -7,14 +30,24 @@ header {
   justify-content: center;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  background-color: beige;
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.hero {
+.hero img {
+  width: 400px;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 2rem;
+}
+
+.booking {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,11 +60,13 @@ form {
   padding: 2rem;
 }
 
+/* calendar styles */
+
 .calendar {
   font-family: Arial, Helvetica, sans-serif !important;
   background-color: rgb(255, 255, 255) !important;
   color: rgb(0, 0, 0) !important;
-  width: 100% !important;
+  max-width: 375px !important;
 }
 
 .mask,
@@ -43,7 +78,8 @@ form {
 
 .date-selected-start,
 .date-selected-end,
-.date-selected {
+.date-selected,
+.date-selected-range {
   background-color: rosybrown;
 }
 
@@ -52,7 +88,6 @@ form {
   cursor: pointer;
 }
 
-.calendar-wrapper {
-  width: 25%;
-  height: 100%;
+.date-selected-range {
+  background-color: rgb(255, 162, 205);
 }
