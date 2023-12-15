@@ -37,7 +37,7 @@ header {
 }
 
 .hero img {
-  width: 400px;
+  width: 300px;
 }
 
 article {
@@ -54,10 +54,10 @@ article {
 }
 
 form {
-  background-color: rgb(210, 162, 255);
   width: 400px;
   height: 400px;
-  padding: 2rem;
+  padding: 0.5rem 2rem;
+  /* background-color: rgb(210, 162, 255); */
 }
 
 /* calendar styles */
