@@ -2,8 +2,16 @@
 // declare(strict_types=1);
 declare(strict_types=1);
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+// require autoload app
+require 'app/autoload.php';
+
+
+// new Client(['base_uri' => 'https://www.yrgopelag.se/centralbank/']);
+
+
+
+// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
 
 // echo '<pre>';
 // echo $_ENV['API_KEY'];
@@ -47,7 +55,12 @@ $dotenv->load();
                                                                                 <option value="standard">Standard</option>
                                                                                 <option value="luxury">Luxury</option>
 
-                                                            </select>
+                                                            </select><br>
+                                                            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                                                            <label for="peanuts">Peanuts 2kr</label><br>
+                                                            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                                                            <label for="vodka">Vodka 3kr</label><br>
+
 
                                                             <button type="submit">Book</button>
 

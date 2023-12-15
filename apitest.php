@@ -28,8 +28,6 @@
 
 declare(strict_types=1);
 
-
-
 //require autoload guzzle
 require __DIR__ . '/vendor/autoload.php';
 
@@ -38,9 +36,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
 $client = new CLient([
-                    'base_uri' => 'https://www.yrgopelag.se/centralbank/',
+  'base_uri' => 'https://www.yrgopelag.se/centralbank/',
 
-                    'timeout' => 2.0,
+  'timeout' => 2.0,
 ]);
 
 $response = $client->request('GET', 'transferCode');
