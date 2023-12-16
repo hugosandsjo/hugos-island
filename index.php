@@ -21,24 +21,22 @@ require 'app/autoload.php';
 ?>
 <?php require __DIR__ . '/header.php'; ?>
 <?php require __DIR__ . '/form.php'; ?>
-
+<nav>
+                    <p>Budget</p>
+                    <p>Standard
+                    </p>
+                    <p>Luxury
+                    </p>
+</nav>
 <header>
-                    <h1>Florida inn</h1>
+
+                    <p class="introduction">“We have a history of serving the best food in combination with beautiful rooms for your stay. All in combination with beautiful nature and food”</p>
 </header>
 <main>
                     <section class="hero">
-                                        <article class="budget">
-                                                            <h2>Budget</h2>
-                                                            <img src="assets/images/budget.png">
-                                        </article>
-                                        <article class="standard">
-                                                            <h2>Standard</h2>
-                                                            <img src="assets/images/standard.png">
-                                        </article>
-                                        <article class="luxury">
-                                                            <h2>Luxury</h2>
-                                                            <img src="assets/images/luxury.png">
-                                        </article>
+                                        <div class="hotelName">
+                                                            <h1>Florida inn</h1>
+                                        </div>
                     </section>
 
                     <section class="booking">
@@ -50,6 +48,7 @@ require 'app/autoload.php';
                                                             <input type="text" name="email" placeholder="Email">
                                                             <input type="text" id="arrival" name="arrival" placeholder="Arrival">
                                                             <input type="text" id="departure" name="departure" placeholder="Departure">
+                                                            <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code">
                                                             <select id="room" name="roomType">
                                                                                 <option value="budget">Budget</option>
                                                                                 <option value="standard">Standard</option>
