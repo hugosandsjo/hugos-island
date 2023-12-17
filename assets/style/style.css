@@ -22,6 +22,7 @@ h1 {
   font-size: 46px;
   font-weight: 400;
   margin-bottom: 2rem;
+  float: right;
 }
 
 h2 {
@@ -31,8 +32,10 @@ h2 {
 
 header {
   display: flex;
-  width: 100%;
+  width: 100vw;
   justify-content: flex-end;
+  padding: 0px 85px 0 0;
+  position: absolute;
 }
 
 nav {
@@ -52,23 +55,31 @@ main {
 }
 
 .hotelName {
-  align-self: flex-end;
+  position: sticky;
+  height: 200px;
+  top: 10px;
+  width: 100%;
 }
 
 .introduction {
   max-width: 520px;
   font-size: 32px;
   text-align: right;
-  align-self: flex-end;
+  /* align-self: flex-end; */
   margin: 0;
 }
 
 .hero {
-  display: flex;
+  /* display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
-  height: 76vh;
+  align-items: flex-end; */
+  height: 80vh;
+  padding: 0 0 0 4rem;
   /* background-color: aqua; */
+}
+
+.apple {
+  max-width: 800px;
 }
 
 /*
@@ -86,10 +97,30 @@ article {
 }
 
 form {
-  width: 400px;
+  width: 506px;
   height: 400px;
   padding: 0.5rem 2rem;
   /* background-color: rgb(210, 162, 255); */
+}
+
+input {
+  height: 4rem;
+  width: 45%;
+  padding: 2rem;
+  margin: 0 1rem 1rem 0;
+  font-family: 'EB Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  border: 1px solid black;
+  background-color: var(--white);
+}
+
+.emailInput {
+  width: 95%;
+}
+
+.transferCode {
+  width: 95%;
 }
 
 /* calendar styles */
@@ -122,4 +153,30 @@ form {
 
 .date-selected-range {
   background-color: rgb(255, 162, 205);
+}
+
+.calendar-title th {
+  background-color: white !important;
+  font-weight: 400 !important;
+}
+
+.calendar-header th {
+  padding: 10px;
+  text-align: center;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.calendar tbody tr td.day div:first-child {
+  padding: 14px !important;
+  line-height: 17px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.calendar tbody tr td {
+  text-align: center;
+  vertical-align: top;
+  width: 14.28%;
+  /* background-color: #eeeeee !important; */
 }
