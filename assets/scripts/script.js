@@ -26,13 +26,41 @@ document.querySelectorAll('.calendar td').forEach(function (cell) {
 });
 
 // This function handles the click event on the calendar day boxes
-(function () {
+// (function () {
+//   let clickCount = 0; // Keeps track of the number of clicks
+//   let arrivalInput = document.getElementById('arrival'); // Input field for arrival date
+//   let departureInput = document.getElementById('departure'); // Input field for departure date
+
+//   // Loop through all the calendar day boxes
+//   document.querySelectorAll('.cal-day-box').forEach(function (box) {
+//     let parentTd = box.parentElement; // Get the parent td of the .cal-day-box
+
+//     // Add click event listener to the parent td
+//     parentTd.addEventListener('click', function () {
+//       let selectedDay = box.textContent; // Get the day from the .cal-day-box
+//       let selectedDate = '2024-01-' + selectedDay.padStart(2, '0'); // Construct the date
+
+//       // Update the appropriate form input based on the click count
+//       if (clickCount === 0) {
+//         arrivalInput.value = selectedDate; // Set the arrival date
+//       } else if (clickCount === 1) {
+//         departureInput.value = selectedDate; // Set the departure date
+//         clickCount = -1; // Reset click count
+//       }
+
+//       clickCount++; // Increment click count
+//     });
+//   });
+// })();
+
+// This function handles the click event on the calendar day boxes
+function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
   let clickCount = 0; // Keeps track of the number of clicks
-  let arrivalInput = document.getElementById('arrival'); // Input field for arrival date
-  let departureInput = document.getElementById('departure'); // Input field for departure date
+  let arrivalInput = document.getElementById(arrivalId); // Input field for arrival date
+  let departureInput = document.getElementById(departureId); // Input field for departure date
 
   // Loop through all the calendar day boxes
-  document.querySelectorAll('.cal-day-box').forEach(function (box) {
+  document.querySelectorAll(dayBoxClass).forEach(function (box) {
     let parentTd = box.parentElement; // Get the parent td of the .cal-day-box
 
     // Add click event listener to the parent td
@@ -51,7 +79,11 @@ document.querySelectorAll('.calendar td').forEach(function (cell) {
       clickCount++; // Increment click count
     });
   });
-})();
+}
+// Call the function with the appropriate parameters
+handleCalendarClick('arrivalBudget', 'departureBudget', '.cal-day-box');
+handleCalendarClick('arrivalStandard', 'departureStandard', '.cal-day-box');
+handleCalendarClick('arrivalLuxury', 'departureLuxury', '.cal-day-box');
 
 // toggle between the different rooms view
 let navItems = document.querySelectorAll('nav div');
@@ -72,7 +104,6 @@ navItems.forEach((navItem) => {
     }
   });
 });
-
 // Make the first section visible when the page loads
 window.onload = function () {
   document.querySelector('section.booking').style.display = 'flex';

@@ -49,20 +49,21 @@ require 'app/autoload.php';
             <input type="text" name="firstname" placeholder="Name">
             <input type="text" name="lastname" placeholder="Lastname">
             <input type="text" name="email" placeholder="Email" class="emailInput">
-            <input type="text" id="arrival" name="arrival" placeholder="Arrival">
-            <input type="text" id="departure" name="departure" placeholder="Departure">
+            <input type="text" id="arrivalBudget" name="arrival" placeholder="Arrival">
+            <input type="text" id="departureBudget" name="departure" placeholder="Departure">
             <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br>
             <select id="room" name="roomType">
                 <option value="budget">Budget</option>
-                <option value="standard">Standard</option>
-                <option value="luxury">Luxury</option>
-            </select><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
-            <label for="peanuts">Peanuts 2kr</label><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
-            <label for="vodka">Vodka 3kr</label><br>
-
-            <button type="submit">Book</button>
+            </select>
+            <div class="features">
+                <input class="checkbox" type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                <label for="peanuts">Peanuts 2kr</label>
+                <input class="checkbox" type="checkbox" id="vodka" name="vodka" value="vodka">
+                <label for="vodka">Vodka 3kr</label>
+                <input class="checkbox" type="checkbox" id="dinner" name="dinner" value="dinner">
+                <label for="vodka">Three course dinner 10kr</label>
+            </div>
+            <br><button type="submit">Book</button>
 
             <?php if (isset($errors)) {
                 foreach ($errors as $error) {
@@ -70,6 +71,7 @@ require 'app/autoload.php';
                 }
             } ?>
         </form>
+
     </section>
 
     <section class="booking standard">
@@ -83,20 +85,21 @@ require 'app/autoload.php';
             <input type="text" name="firstname" placeholder="Name">
             <input type="text" name="lastname" placeholder="Lastname">
             <input type="text" name="email" placeholder="Email" class="emailInput">
-            <input type="text" id="arrival" name="arrival" placeholder="Arrival">
-            <input type="text" id="departure" name="departure" placeholder="Departure">
+            <input type="text" id="arrivalStandard" name="arrival" placeholder="Arrival">
+            <input type="text" id="departureStandard" name="departure" placeholder="Departure">
             <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br>
             <select id="room" name="roomType">
-                <option value="budget">Budget</option>
                 <option value="standard">Standard</option>
-                <option value="luxury">Luxury</option>
-            </select><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
-            <label for="peanuts">Peanuts 2kr</label><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
-            <label for="vodka">Vodka 3kr</label><br>
-
-            <button type="submit">Book</button>
+            </select>
+            <div class="features">
+                <input class="checkbox" type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                <label for="peanuts">Peanuts 2kr</label><br>
+                <input class="checkbox" type="checkbox" id="vodka" name="vodka" value="vodka">
+                <label for="vodka">Vodka 3kr</label><br>
+                <input class="checkbox" type="checkbox" id="dinner" name="dinner" value="dinner">
+                <label for="vodka">Three course dinner 10kr</label><br>
+            </div>
+            <br><button type="submit">Book</button>
 
             <?php if (isset($errors)) {
                 foreach ($errors as $error) {
@@ -117,20 +120,21 @@ require 'app/autoload.php';
             <input type="text" name="firstname" placeholder="Name">
             <input type="text" name="lastname" placeholder="Lastname">
             <input type="text" name="email" placeholder="Email" class="emailInput">
-            <input type="text" id="arrival" name="arrival" placeholder="Arrival">
-            <input type="text" id="departure" name="departure" placeholder="Departure">
+            <input type="text" id="arrivalLuxury" name="arrival" placeholder="Arrival">
+            <input type="text" id="departureLuxury" name="departure" placeholder="Departure">
             <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br>
             <select id="room" name="roomType">
-                <option value="budget">Budget</option>
-                <option value="standard">Standard</option>
                 <option value="luxury">Luxury</option>
-            </select><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
-            <label for="peanuts">Peanuts 2kr</label><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
-            <label for="vodka">Vodka 3kr</label><br>
-
-            <button type="submit">Book</button>
+            </select>
+            <div class="features">
+                <input class="checkbox" type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                <label for="peanuts">Peanuts 2kr</label><br>
+                <input class="checkbox" type="checkbox" id="vodka" name="vodka" value="vodka">
+                <label for="vodka">Vodka 3kr</label><br>
+                <input class="checkbox" type="checkbox" id="dinner" name="dinner" value="dinner">
+                <label for="vodka">Three course dinner 10kr</label><br>
+            </div>
+            <br> <button type="submit">Book</button>
 
             <?php if (isset($errors)) {
                 foreach ($errors as $error) {

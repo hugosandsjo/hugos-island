@@ -51,7 +51,7 @@ nav > div {
   margin: 0;
 }
 
-div:hover {
+nav > div:hover {
   opacity: 50%;
   cursor: pointer;
 }
@@ -100,8 +100,8 @@ main {
 }
 
 form {
-  width: 506px;
-  height: 400px;
+  max-width: 500px;
+  height: 460px;
   padding: 0.5rem 2rem;
   /* background-color: rgb(210, 162, 255); */
 }
@@ -109,7 +109,7 @@ form {
 input {
   height: 4rem;
   width: 45%;
-  padding: 2rem;
+  padding: 0rem 2rem;
   margin: 0 1rem 1rem 0;
   font-family: 'EB Garamond', serif;
   font-size: 26px;
@@ -118,12 +118,27 @@ input {
   background-color: var(--white);
 }
 
+.checkbox {
+  height: 25px;
+  width: 25px;
+  background-color: #f7f5f1;
+}
+
 .emailInput {
-  width: 95%;
+  width: 94.5%;
 }
 
 .transferCode {
-  width: 95%;
+  width: 94.5%;
+}
+
+select {
+  display: none;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* calendar styles */
@@ -133,29 +148,24 @@ input {
   background-color: rgb(255, 255, 255) !important;
   color: rgb(0, 0, 0) !important;
   max-width: 375px !important;
+  min-width: 400px !important;
+}
+
+tbody {
+  background-color: #eeeeee !important;
 }
 
 .mask,
 .mask-start,
 .mask-end {
-  background-color: rgb(255, 162, 205) !important;
+  /* color: white !important; */
+  background-color: #fd9768 !important;
   cursor: default !important;
 }
 
-.date-selected-start,
-.date-selected-end,
-.date-selected,
-.date-selected-range {
-  background-color: rosybrown;
-}
-
 .day:hover {
-  background-color: rgb(112, 255, 80);
+  background-color: rgb(112, 255, 80) !important;
   cursor: pointer;
-}
-
-.date-selected-range {
-  background-color: rgb(255, 162, 205);
 }
 
 .calendar-title th {
@@ -181,5 +191,16 @@ input {
   text-align: center;
   vertical-align: top;
   width: 14.28%;
-  /* background-color: #eeeeee !important; */
+  height: 4rem;
+}
+
+.date-selected-range {
+  background-color: rgb(255, 162, 205) !important;
+}
+
+.date-selected-start,
+.date-selected-end,
+.date-selected,
+.date-selected-range {
+  background-color: rosybrown !important;
 }

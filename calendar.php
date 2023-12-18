@@ -50,7 +50,6 @@ function addBookingsToEvents($roomId)
                     break;
                }
           }
-
           // If the booking was successful, add the dates from the temporary array to the occupied array
           if (!$bookingConflict) {
                $occupied = array_merge($occupied, $tempOccupied);
@@ -58,7 +57,7 @@ function addBookingsToEvents($roomId)
                if ($roomId === 1) {
                     $eventsBudget[] = [
                          'start' => $start,
-                         'end' => $end, // Use the original end date here
+                         'end' => $end,
                          'summary' => '',
                          'mask' => true,
                          'classes' => ['booked']
@@ -68,7 +67,7 @@ function addBookingsToEvents($roomId)
                if ($roomId === 2) {
                     $eventsStandard[] = [
                          'start' => $start,
-                         'end' => $end, // Use the original end date here
+                         'end' => $end,
                          'summary' => '',
                          'mask' => true,
                          'classes' => ['booked']
@@ -78,7 +77,7 @@ function addBookingsToEvents($roomId)
                if ($roomId === 3) {
                     $eventsLuxury[] = [
                          'start' => $start,
-                         'end' => $end, // Use the original end date here
+                         'end' => $end,
                          'summary' => '',
                          'mask' => true,
                          'classes' => ['booked']
