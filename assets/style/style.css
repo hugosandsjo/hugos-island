@@ -42,12 +42,18 @@ nav {
   display: flex;
   flex-direction: column;
   position: fixed;
+  z-index: 1;
 }
 
-nav > p {
+nav > div {
   font-size: 46px;
   font-weight: 400;
   margin: 0;
+}
+
+div:hover {
+  opacity: 50%;
+  cursor: pointer;
 }
 
 main {
@@ -65,35 +71,32 @@ main {
   max-width: 520px;
   font-size: 32px;
   text-align: right;
-  /* align-self: flex-end; */
+
   margin: 0;
 }
 
 .hero {
-  /* display: flex;
-  justify-content: flex-end;
-  align-items: flex-end; */
   height: 80vh;
   padding: 0 0 0 4rem;
-  /* background-color: aqua; */
 }
 
 .apple {
   max-width: 800px;
 }
 
-/*
-article {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin: 2rem;
-} */
-
 .booking {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.booking {
+  display: none;
 }
 
 form {

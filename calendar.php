@@ -5,22 +5,28 @@ require 'vendor/autoload.php';
 use benhall14\phpCalendar\Calendar as Calendar;
 
 // Create a new calendar
-$calendar = new Calendar();
+$calendarBudget = new Calendar();
+$calendarStandard = new Calendar();
+$calendarLuxury = new Calendar();
 
-// function to add a booking to the events array and get displayed on the calender
-function addBookingsToEvents()
+// function to add a booking to the events array and get displayed on the calender depending on the roomtype
+function addBookingsToEvents($roomId)
 {
      // Connect to the database
      $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
-     $statement = $database->prepare('SELECT arrival, departure FROM bookings');
+     $statement = $database->prepare(
+          'SELECT arrival, departure
+     FROM bookings
+     WHERE room_id = :roomId'
+     );
+     $statement->bindParam(':roomId', $roomId, PDO::PARAM_INT);
      $statement->execute();
      $bookings = $statement->fetchAll(PDO::FETCH_ASSOC);
 
      $occupied = [];  // Initialize the occupied array
-     $events = [];  // Initialize the events array
-     $errorMessage = null; // Variable to store the error message
-
-     // Check to see if
+     $eventsBudget = [];  // Initialize the events array
+     $eventsStandard = [];  // Initialize the events array
+     $eventsLuxury = [];  // Initialize the events array
      $errorMessage = null; // Variable to store the error message
 
      foreach ($bookings as $booking) {
@@ -49,13 +55,35 @@ function addBookingsToEvents()
           if (!$bookingConflict) {
                $occupied = array_merge($occupied, $tempOccupied);
 
-               $events[] = [
-                    'start' => $start,
-                    'end' => $end, // Use the original end date here
-                    'summary' => '',
-                    'mask' => true,
-                    'classes' => ['booked']
-               ];
+               if ($roomId === 1) {
+                    $eventsBudget[] = [
+                         'start' => $start,
+                         'end' => $end, // Use the original end date here
+                         'summary' => '',
+                         'mask' => true,
+                         'classes' => ['booked']
+                    ];
+               }
+
+               if ($roomId === 2) {
+                    $eventsStandard[] = [
+                         'start' => $start,
+                         'end' => $end, // Use the original end date here
+                         'summary' => '',
+                         'mask' => true,
+                         'classes' => ['booked']
+                    ];
+               }
+
+               if ($roomId === 3) {
+                    $eventsLuxury[] = [
+                         'start' => $start,
+                         'end' => $end, // Use the original end date here
+                         'summary' => '',
+                         'mask' => true,
+                         'classes' => ['booked']
+                    ];
+               }
           }
      }
 
@@ -68,14 +96,9 @@ function addBookingsToEvents()
           echo $date . '<br>';
      }
 
-     return $events;
+     return [
+          'eventsBudget' => $eventsBudget,
+          'eventsStandard' => $eventsStandard,
+          'eventsLuxury' => $eventsLuxury
+     ];
 }
-
-// Use the function
-$events = addBookingsToEvents();
-
-// Add the events to the calendar
-$calendar->addEvents($events);
-
-// Defines what month to display
-$calendar->display(date('2024-01-01'));
