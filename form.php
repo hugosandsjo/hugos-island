@@ -20,12 +20,15 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $arrival = $_POST['arrival'];
      $departure = $_POST['departure'];
      $roomType = $_POST['roomType'];
-
-     //features
+     $selectedFeatures = $_POST['features']; // Assuming 'features' is the name of your checkboxes
+     // important hotelId
+     $hotelId = (int) 1;
+     // if any features are selected this will create an array of the chosen features
      if (isset($_POST['features'])) {
-          $features = $_POST['features'];
-     } else {
-          $features = [];
+          $selectedFeatures = $_POST['features']; // This will be an array
+          foreach ($selectedFeatures as $featureId) {
+               // Process each selected feature
+          }
      }
 
      // insert error messages to the $errors array if information is missing
@@ -56,12 +59,14 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $errors[] = 'Invalid room type selected.' . '<br>';
      }
 
+     print_r($selectedFeatures);
 
      // If no errors, insert into database
      if (!isset($errors)) {
 
           $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');  // Connect the database
 
+          //insert into guests
           $statement = $database->prepare('INSERT INTO guests (firstname, lastname, email) VALUES (:firstname, :lastname, :email)');
           $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
           $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
@@ -70,8 +75,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
 
           // Get the last inserted guest_id to use in the booking table
           $lastGuestId = $database->lastInsertId();
-          //           $hotelId = (int) 1;
-
+          // insert into bookings
           $statement = $database->prepare('INSERT INTO bookings (arrival, departure, guest_id, hotel_id, room_id) VALUES (:arrival, :departure, :guest_id, :hotel_id, :room_id)');
           $statement->bindParam(':arrival', $arrival, PDO::PARAM_STR);
           $statement->bindParam(':departure', $departure, PDO::PARAM_STR);
@@ -80,68 +84,57 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
           $statement->execute();
 
-          if (isset($_POST['features'])) {
-
-               $features = $_POST['features'];
-               $features = [];
-
-
+          //insert last guest id and features into booking_features junction table
+          foreach ($selectedFeatures as $featureId) {
                $statement = $database->prepare('INSERT INTO booking_features (booking_id, feature_id) VALUES (:booking_id, :feature_id)');
-
-               foreach ($_POST['features'] as $feature) {
-                    if ($feature === 'peanuts') {
-                         $feature = 1;
-                    }
-                    if ($feature === 'vodka') {
-                         $feature = 2;
-                    }
-                    if ($feature === 'dinner') {
-                         $feature = 3;
-                    }
-
-                    $statement->bindParam(':booking_id', $lastGuestId);
-                    $statement->bindParam(':feature_id', $feature);
-                    $statement->execute();
-               }
+               $statement->bindParam(':booking_id', $lastGuestId);
+               $statement->bindParam(':feature_id', $featureId);
+               $statement->execute();
           }
 
           echo "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
 
-          $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.arrival, bookings.departure, hotel.stars, features.name, features.cost
-          FROM hotel
-          INNER JOIN bookings
-          ON hotel.id = bookings.hotel_id
-          LEFT JOIN booking_features
-          ON bookings.id = booking_features.booking_id
-          LEFT JOIN features
-           ON booking_features.feature_id = features.id
-          ORDER BY bookings.id DESC
-          LIMIT 1;');
-
+          // fetch the info for the json-array
+          $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.arrival, bookings.departure, hotel.stars,
+(SELECT COALESCE(SUM(rooms.price), 0) FROM booking_rooms LEFT JOIN rooms ON booking_rooms.room_id = rooms.id WHERE booking_rooms.booking_id = bookings.id) +
+(SELECT COALESCE(SUM(features.cost), 0) FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = bookings.id) AS total_cost
+FROM hotel
+INNER JOIN bookings
+ON hotel.id = bookings.hotel_id
+ORDER BY bookings.id DESC
+LIMIT 1');
           $statement->execute();
           $lastBooking = $statement->fetch(PDO::FETCH_ASSOC);
 
+          // fetch the features for the last booking in its own query
+          $statement = $database->prepare('SELECT features.name, features.cost FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id');
+          $statement->bindParam(':booking_id', $lastBooking['id']);
+          $statement->execute();
+          $features = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+          // create object from querys
           $response = [
                'island' => $lastBooking['island'],
                'hotel' => $lastBooking['hotel'],
                'arrival_date' => $lastBooking['arrival'],
                'departure_date' => $lastBooking['departure'],
-               'total_cost' => $lastBooking['cost'],
+               'total_cost' => $lastBooking['total_cost'],
                'stars' => $lastBooking['stars'],
-               'features' => $lastBooking['name'] ? [
-                    'name' => $lastBooking['name'],
-                    'cost' => $lastBooking['cost']
-               ] : "No features",
+               // select from features with its own query
+               'features' => $selectedFeatures ?: [],
                'additional_info' => [
-                    'greeting' => "Thank you for choosing Florda inn",
+                    'greeting' => "Thank you for choosing Florida inn",
                     'imageUrl' => "No image at the moment"
                ]
           ];
 
-          session_start();
+          print_r($response);
 
-          $_SESSION['response'] = $response;
-          header('Location: displayjson.php');
-          exit;
+          //           session_start();
+
+          //           $_SESSION['response'] = $response;
+          //           header('Location: displayjson.php');
+          //           exit;
      }
 }
