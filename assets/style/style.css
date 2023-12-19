@@ -87,7 +87,7 @@ main {
 .booking {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 2rem;
 }
 
@@ -102,7 +102,7 @@ main {
 form {
   max-width: 500px;
   height: 460px;
-  padding: 0.5rem 2rem;
+  padding: 0rem 2rem;
   /* background-color: rgb(210, 162, 255); */
 }
 
@@ -145,31 +145,39 @@ select {
 
 .calendar {
   font-family: 'EB Garamond', serif !important;
+  font-size: 18px !important;
   background-color: rgb(255, 255, 255) !important;
   color: rgb(0, 0, 0) !important;
   max-width: 375px !important;
   min-width: 400px !important;
+  border: 1px solid black;
 }
 
 tbody {
   background-color: #eeeeee !important;
 }
 
+.calendar tbody tr td {
+  padding: 5px 0px !important;
+  /* font-size: 20px !important; */
+  /* border: solid 1px black; */
+}
+
 .mask,
 .mask-start,
 .mask-end {
-  /* color: white !important; */
   background-color: #fd9768 !important;
   cursor: default !important;
 }
 
 .day:hover {
-  background-color: rgb(112, 255, 80) !important;
+  background-color: rgb(166, 221, 154) !important;
   cursor: pointer;
 }
 
 .calendar-title th {
-  background-color: white !important;
+  font-size: 28px !important;
+  background-color: var(--white) !important;
   font-weight: 400 !important;
 }
 
@@ -177,22 +185,20 @@ tbody {
   padding: 10px;
   text-align: center;
   font-weight: 400;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--white) !important;
 }
 
 .calendar tbody tr td.day div:first-child {
-  padding: 14px !important;
-  line-height: 17px;
-  font-weight: 400;
-  font-size: 18px;
+  padding-top: 15px !important;
+  /* padding: 14px !important; */
 }
 
-.calendar tbody tr td {
+/* .calendar tbody tr td {
   text-align: center;
   vertical-align: top;
   width: 14.28%;
   height: 4rem;
-}
+} */
 
 .date-selected-range {
   background-color: rgb(255, 162, 205) !important;

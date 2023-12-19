@@ -6,12 +6,11 @@ declare(strict_types=1);
 //require autoload guzzle
 // require __DIR__ . 'vendor/autoload.php';
 
-// //Start guzzle
+// start guzzle
 // use GuzzleHttp\Client;
 // use GuzzleHttp\Exception\ClientException;
 
-// Post logic
-
+// post logic
 if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'], $_POST['roomType'])) {
 
      // Trimming and sanitizing
@@ -22,11 +21,20 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $departure = $_POST['departure'];
      $roomType = $_POST['roomType'];
 
+     //features
+     if (isset($_POST['features'])) {
+          $features = $_POST['features'];
+     } else {
+          $features = [];
+     }
 
-     // Insert error messages to the $errors array if information is missing
+     // insert error messages to the $errors array if information is missing
      if ($email === '') {
           $errors[] = 'The email field is empty.'  . '<br>';
+     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $errors[] = 'The email address is not valid.' . '<br>';
      }
+
      if ($firstname === '') {
           $errors[] = 'The name field is empty.' . '<br>';
      }
@@ -36,9 +44,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      if ($arrival === '' || $departure === '') {
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
-     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-          $errors[] = 'The email address is not valid.' . '<br>';
-     }
+
      // Depending on roomtype
      if ($roomType === 'budget') {
           $roomId = 1;
@@ -49,6 +55,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      } else {
           $errors[] = 'Invalid room type selected.' . '<br>';
      }
+
 
      // If no errors, insert into database
      if (!isset($errors)) {
@@ -63,7 +70,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
 
           // Get the last inserted guest_id to use in the booking table
           $lastGuestId = $database->lastInsertId();
-          $hotelId = (int) 1;
+          //           $hotelId = (int) 1;
 
           $statement = $database->prepare('INSERT INTO bookings (arrival, departure, guest_id, hotel_id, room_id) VALUES (:arrival, :departure, :guest_id, :hotel_id, :room_id)');
           $statement->bindParam(':arrival', $arrival, PDO::PARAM_STR);
@@ -73,17 +80,44 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
           $statement->execute();
 
+          if (isset($_POST['features'])) {
+
+               $features = $_POST['features'];
+               $features = [];
+
+
+               $statement = $database->prepare('INSERT INTO booking_features (booking_id, feature_id) VALUES (:booking_id, :feature_id)');
+
+               foreach ($_POST['features'] as $feature) {
+                    if ($feature === 'peanuts') {
+                         $feature = 1;
+                    }
+                    if ($feature === 'vodka') {
+                         $feature = 2;
+                    }
+                    if ($feature === 'dinner') {
+                         $feature = 3;
+                    }
+
+                    $statement->bindParam(':booking_id', $lastGuestId);
+                    $statement->bindParam(':feature_id', $feature);
+                    $statement->execute();
+               }
+          }
+
           echo "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
 
           $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.arrival, bookings.departure, hotel.stars, features.name, features.cost
-    FROM hotel
-    INNER JOIN bookings
-    ON hotel.id = bookings.hotel_id
-    INNER JOIN booking_features
-    ON bookings.id = booking_features.booking_id
-    INNER JOIN features
-    ON booking_features.feature_id = features.id
-    LIMIT 1;');
+          FROM hotel
+          INNER JOIN bookings
+          ON hotel.id = bookings.hotel_id
+          LEFT JOIN booking_features
+          ON bookings.id = booking_features.booking_id
+          LEFT JOIN features
+           ON booking_features.feature_id = features.id
+          ORDER BY bookings.id DESC
+          LIMIT 1;');
+
           $statement->execute();
           $lastBooking = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -94,15 +128,16 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                'departure_date' => $lastBooking['departure'],
                'total_cost' => $lastBooking['cost'],
                'stars' => $lastBooking['stars'],
-               'features' => [
+               'features' => $lastBooking['name'] ? [
                     'name' => $lastBooking['name'],
                     'cost' => $lastBooking['cost']
-               ],
+               ] : "No features",
                'additional_info' => [
                     'greeting' => "Thank you for choosing Florda inn",
                     'imageUrl' => "No image at the moment"
                ]
           ];
+
           session_start();
 
           $_SESSION['response'] = $response;

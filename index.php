@@ -56,11 +56,11 @@ require 'app/autoload.php';
                 <option value="budget">Budget</option>
             </select>
             <div class="features">
-                <input class="checkbox" type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="peanuts">
                 <label for="peanuts">Peanuts 2kr</label>
-                <input class="checkbox" type="checkbox" id="vodka" name="vodka" value="vodka">
+                <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="vodka">
                 <label for="vodka">Vodka 3kr</label>
-                <input class="checkbox" type="checkbox" id="dinner" name="dinner" value="dinner">
+                <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner">
                 <label for="vodka">Three course dinner 10kr</label>
             </div>
             <br><button type="submit">Book</button>
@@ -92,11 +92,11 @@ require 'app/autoload.php';
                 <option value="standard">Standard</option>
             </select>
             <div class="features">
-                <input class="checkbox" type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="peanuts">
                 <label for="peanuts">Peanuts 2kr</label><br>
-                <input class="checkbox" type="checkbox" id="vodka" name="vodka" value="vodka">
+                <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="vodka">
                 <label for="vodka">Vodka 3kr</label><br>
-                <input class="checkbox" type="checkbox" id="dinner" name="dinner" value="dinner">
+                <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner">
                 <label for="vodka">Three course dinner 10kr</label><br>
             </div>
             <br><button type="submit">Book</button>
@@ -127,11 +127,11 @@ require 'app/autoload.php';
                 <option value="luxury">Luxury</option>
             </select>
             <div class="features">
-                <input class="checkbox" type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="peanuts">
                 <label for="peanuts">Peanuts 2kr</label><br>
-                <input class="checkbox" type="checkbox" id="vodka" name="vodka" value="vodka">
+                <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="vodka">
                 <label for="vodka">Vodka 3kr</label><br>
-                <input class="checkbox" type="checkbox" id="dinner" name="dinner" value="dinner">
+                <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner">
                 <label for="vodka">Three course dinner 10kr</label><br>
             </div>
             <br> <button type="submit">Book</button>
