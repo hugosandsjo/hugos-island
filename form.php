@@ -59,7 +59,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $errors[] = 'Invalid room type selected.' . '<br>';
      }
 
-     print_r($selectedFeatures);
+     //      print_r($selectedFeatures);
 
      // If no errors, insert into database
      if (!isset($errors)) {
@@ -95,7 +95,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           echo "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
 
           // fetch the info for the json-array
-          $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.arrival, bookings.departure, hotel.stars,
+          $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,
 (SELECT COALESCE(SUM(rooms.price), 0) FROM booking_rooms LEFT JOIN rooms ON booking_rooms.room_id = rooms.id WHERE booking_rooms.booking_id = bookings.id) +
 (SELECT COALESCE(SUM(features.cost), 0) FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = bookings.id) AS total_cost
 FROM hotel
@@ -106,14 +106,26 @@ LIMIT 1');
           $statement->execute();
           $lastBooking = $statement->fetch(PDO::FETCH_ASSOC);
 
-          // fetch the features for the last booking in its own query
-          $statement = $database->prepare('SELECT features.name, features.cost FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id');
+          //           print_r($lastBooking);
+
+          // Fetch the features for the last booking in its own query
+          $statement = $database->prepare('SELECT features.id, features.name, features.cost FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id');
           $statement->bindParam(':booking_id', $lastBooking['id']);
           $statement->execute();
           $features = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+          // Create an associative array where the keys are the feature IDs and the values are the feature names
+          //           print_r($features);
 
-          // create object from querys
+          $featureNames = [];
+          foreach ($features as $feature) {
+               $featureNames[] = [
+                    'name' => $feature['name'],
+                    'cost' => $feature['cost']
+               ];
+          }
+
+          // Create object from queries
           $response = [
                'island' => $lastBooking['island'],
                'hotel' => $lastBooking['hotel'],
@@ -121,8 +133,8 @@ LIMIT 1');
                'departure_date' => $lastBooking['departure'],
                'total_cost' => $lastBooking['total_cost'],
                'stars' => $lastBooking['stars'],
-               // select from features with its own query
-               'features' => $selectedFeatures ?: [],
+               // Select from features with its own query
+               'features' => $featureNames ?: [],
                'additional_info' => [
                     'greeting' => "Thank you for choosing Florida inn",
                     'imageUrl' => "No image at the moment"
@@ -131,10 +143,10 @@ LIMIT 1');
 
           print_r($response);
 
-          //           session_start();
+          session_start();
 
-          //           $_SESSION['response'] = $response;
-          //           header('Location: displayjson.php');
-          //           exit;
+          $_SESSION['response'] = $response;
+          header('Location: displayjson.php');
+          exit;
      }
 }

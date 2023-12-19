@@ -56,11 +56,11 @@ require 'app/autoload.php';
                 <option value="budget">Budget</option>
             </select>
             <div class="features">
-                <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="peanuts">
+                <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="1">
                 <label for="peanuts">Peanuts 2kr</label>
-                <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="vodka">
+                <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="2">
                 <label for="vodka">Vodka 3kr</label>
-                <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner">
+                <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3">
                 <label for="vodka">Three course dinner 10kr</label>
             </div>
             <br><button type="submit">Book</button>
