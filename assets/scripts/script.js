@@ -52,6 +52,7 @@ function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
     });
   });
 }
+
 // Call the function with the appropriate parameters
 handleCalendarClick('arrivalBudget', 'departureBudget', '.cal-day-box');
 handleCalendarClick('arrivalStandard', 'departureStandard', '.cal-day-box');

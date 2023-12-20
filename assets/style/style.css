@@ -153,14 +153,19 @@ select {
   border: 1px solid black;
 }
 
+.date-selected-start,
+.date-selected-end,
+.date-selected,
+.date-selected-range {
+  background-color: rgb(172, 172, 172) !important;
+}
+
 tbody {
   background-color: #eeeeee !important;
 }
 
 .calendar tbody tr td {
   padding: 5px 0px !important;
-  /* font-size: 20px !important; */
-  /* border: solid 1px black; */
 }
 
 .mask,
@@ -193,20 +198,6 @@ tbody {
   /* padding: 14px !important; */
 }
 
-/* .calendar tbody tr td {
-  text-align: center;
-  vertical-align: top;
-  width: 14.28%;
-  height: 4rem;
-} */
-
 .date-selected-range {
   background-color: rgb(255, 162, 205) !important;
-}
-
-.date-selected-start,
-.date-selected-end,
-.date-selected,
-.date-selected-range {
-  background-color: rosybrown !important;
 }
