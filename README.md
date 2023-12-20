@@ -28,6 +28,7 @@ If your project requires some installation or similar, please inform your user '
 
 # Database
 
+```sql
 CREATE TABLE bookings (
     id INTEGER PRIMARY KEY,
     arrival TEXT,
@@ -79,3 +80,5 @@ CREATE TABLE hotel (
     island VARCHAR,
     stars INTEGER
 );
+
+```
