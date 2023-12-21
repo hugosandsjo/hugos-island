@@ -22,17 +22,20 @@ function addBookingsToEvents($roomId)
      $statement->bindParam(':roomId', $roomId, PDO::PARAM_INT);
      $statement->execute();
      $bookings = $statement->fetchAll(PDO::FETCH_ASSOC);
+     // Initialize the occupied array
+     $occupied = [];
+     // Initialize the events array for all room categorys
+     $eventsBudget = [];
+     $eventsStandard = [];
+     $eventsLuxury = [];
+     // Variable to store the error message
+     $errorMessage = null;
 
-     $occupied = [];  // Initialize the occupied array
-     $eventsBudget = [];  // Initialize the events array
-     $eventsStandard = [];  // Initialize the events array
-     $eventsLuxury = [];  // Initialize the events array
-     $errorMessage = null; // Variable to store the error message
-
+     // add the dates of arrival and departure and the dates inbetween into the temporary occupied array
      foreach ($bookings as $booking) {
           $start = $booking['arrival'];
           $end = $booking['departure'];
-          $endPlusOne = date('Y-m-d', strtotime($end . ' +1 day')); // Add one day to the end date
+          $endPlusOne = date('Y-m-d', strtotime($end . ' +1 day')); // add one day to the end date
           $interval = new DateInterval('P1D');
           $period = new DatePeriod(new DateTime($start), $interval, new DateTime($endPlusOne));
 
@@ -45,12 +48,12 @@ function addBookingsToEvents($roomId)
                if (!in_array($bookedDate, $occupied)) {
                     $tempOccupied[] = $bookedDate; // Add the date to the temporary array
                } else {
-                    $errorMessage = "Sorry already booked <br>"; // Store the error message in the variable
                     $bookingConflict = true; // Set the flag to true
                     break;
                }
           }
-          // If the booking was successful, add the dates from the temporary array to the occupied array
+
+          // If the booking was successful, add the dates from the temporary array to the occupied array and depending on the roomId add it to the matching calendar (budget, standard or luxury)
           if (!$bookingConflict) {
                $occupied = array_merge($occupied, $tempOccupied);
 
