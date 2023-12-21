@@ -64,6 +64,11 @@ let sections = document.querySelectorAll('section.booking');
 
 navItems.forEach((navItem) => {
   navItem.addEventListener('click', function () {
+    // If the clicked navigation item is already selected, do nothing
+    if (this.classList.contains('navItemSelected')) {
+      return;
+    }
+
     // Hide all sections
     sections.forEach((section) => {
       section.style.display = 'none';
@@ -77,6 +82,7 @@ navItems.forEach((navItem) => {
     }
   });
 });
+
 // Make the first section visible when the page loads
 window.onload = function () {
   document.querySelector('section.booking').style.display = 'flex';
