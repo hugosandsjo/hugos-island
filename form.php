@@ -19,9 +19,8 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
      $arrival = $_POST['arrival'];
      $departure = $_POST['departure'];
-     $roomType = $_POST['roomType'];
-     // if any features are selected this will create an array of the chosen features
-     if (isset($_POST['features'])) {
+     $hotelId = (int) 1; // important hotelId and is always the same
+     if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
           $selectedFeatures = $_POST['features']; // This will be an array
           foreach ($selectedFeatures as $featureId) {
                // Process each selected feature
@@ -29,12 +28,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      } else {
           $selectedFeatures = [];
      }
-     //      if (isset($_POST['features'])) {
-     //           $selectedFeatures = $_POST['features'];
-     //      }
-     // important hotelId and is always the same
-     $hotelId = (int) 1;
-
+     $roomType = $_POST['roomType'];
      // Depending on roomtype
      if ($roomType === 'budget') {
           $roomId = 1;
@@ -52,8 +46,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $interval = $arrivalDate->diff($departureDate);
      $days = $interval->format('%a') + 1; // the +1 since it only calculates the days inbetween
      $stayLength = $days;
-     echo $stayLength;
-
 
      // insert error messages to the $errors array if information is missing
      if ($email === '') {
@@ -71,7 +63,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
 
-     // checking avai
+     // checking availability
      function isDateAvailable($arrival, $departure, $roomId)
      {
           $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
@@ -125,7 +117,8 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                          $statement->execute();
                     }
                }
-               echo "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
+
+               $message = "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
 
                // fetch the info for the json-array and calculate the total_cost of the users stay
                $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,
@@ -146,7 +139,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                $features = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                // Create an associative array where the keys are the feature IDs and the values are the feature names
-
                $featureNames = [];
                foreach ($features as $feature) {
                     $featureNames[] = [

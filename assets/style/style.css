@@ -49,11 +49,16 @@ nav > div {
   font-size: 46px;
   font-weight: 400;
   margin: 0;
+  transition: margin-left 0.5s ease-out;
 }
 
 nav > div:hover {
   opacity: 50%;
   cursor: pointer;
+}
+
+#selectedNavItem {
+  margin-left: 20px;
 }
 
 main {
@@ -112,7 +117,7 @@ input {
   padding: 0rem 2rem;
   margin: 0 1rem 1rem 0;
   font-family: 'EB Garamond', serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 400;
   border: 1px solid black;
   background-color: var(--white);

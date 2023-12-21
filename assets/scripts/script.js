@@ -81,3 +81,33 @@ navItems.forEach((navItem) => {
 window.onload = function () {
   document.querySelector('section.booking').style.display = 'flex';
 };
+
+let navSelected = document.querySelectorAll('#navItem');
+
+navItems.forEach(function (navItem) {
+  navItem.addEventListener('click', function () {
+    // Remove the class from all navigation items
+    navItems.forEach(function (item) {
+      item.classList.remove('navItemSelected');
+    });
+
+    // Add the class to the clicked item
+    this.classList.add('navItemSelected');
+  });
+});
+
+// Select all navigation items
+// let navItems = document.querySelectorAll('nav div');
+
+// Add click event listener to each navigation item
+navItems.forEach(function (navItem) {
+  navItem.addEventListener('click', function () {
+    // Remove #selectedNavItem id from all navigation items
+    navItems.forEach(function (item) {
+      item.removeAttribute('id');
+    });
+
+    // Add #selectedNavItem id to the clicked item
+    this.setAttribute('id', 'selectedNavItem');
+  });
+});
