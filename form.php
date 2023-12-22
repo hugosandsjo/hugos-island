@@ -39,6 +39,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      } else {
           $errors[] = 'Invalid room type selected.' . '<br>';
      }
+     $transferCode = $_POST['transferCode'];
 
      // calculate the total days of the booking using the arrival and departure dates and calcualting the days between
      $arrivalDate = new DateTime($arrival);
@@ -162,6 +163,8 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                          'imageUrl' => "No image at the moment"
                     ]
                ];
+
+
 
                print_r($response);
 

@@ -5,8 +5,6 @@ declare(strict_types=1);
 // require autoload app
 require 'app/autoload.php';
 
-// new Client(['base_uri' => 'https://www.yrgopelag.se/centralbank/']);
-
 // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 // $dotenv->load();
 
