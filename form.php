@@ -3,6 +3,13 @@
 // declare(strict_types=1);
 declare(strict_types=1);
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+
+$client = new Client([
+     'base_uri' => 'https://www.yrgopelag.se/centralbank/',
+     'timeout' => 2.0,
+]);
 //require autoload guzzle
 // require __DIR__ . 'vendor/autoload.php';
 
@@ -20,6 +27,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $arrival = $_POST['arrival'];
      $departure = $_POST['departure'];
      $hotelId = (int) 1; // important hotelId and is always the same
+     $transferCode = $_POST['transferCode'];
      if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
           $selectedFeatures = $_POST['features']; // This will be an array
           foreach ($selectedFeatures as $featureId) {
@@ -43,7 +51,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      } else {
           $errors[] = 'Invalid room type selected.' . '<br>';
      }
-     $transferCode = $_POST['transferCode'];
 
      // calculate the total days of the booking using the arrival and departure dates and calcualting the days between
      $arrivalDate = new DateTime($arrival);
@@ -81,6 +88,30 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      if ($arrival === '' || $departure === '') {
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
+
+     //check valid transfercode
+     $validTransferCode = [
+          'form_params' => [
+               'transferCode' => $transferCode,
+               'totalcost' => $totalCost
+          ]
+     ];
+     try {
+          $response = $client->request('POST', 'transferCode', $validTransferCode);
+          $body = json_decode($response->getBody()->getContents(), true);
+
+          if (isset($body['error']) && $body['error'] == "Not a valid GUID") {
+               // The transfer code was not accepted, display an error message
+               $errors[] = 'Not a valid transfer code.' . '<br>';
+          } else {
+               // The transfer code was accepted, proceed with the booking
+               // Insert your booking code here
+          }
+     } catch (ClientException $e) {
+          $errors[] = 'Error: ' . $e->getMessage() . '<br>';
+     }
+
+
 
      // checking availability
      function isDateAvailable($arrival, $departure, $roomId)
