@@ -20,15 +20,15 @@ $client = new Client([
 // print_r(($response->getBody()->getContents()));
 
 //check validtransfercode
-// $validTransferCode = [
-//      'form_params' => [
-//           'transferCode' => '7e4545a9-e962-4816-a407-d5d56501775b',
-//           'totalcost' => 2
-//      ]
-// ];
-// $response = $client->request('POST', 'transferCode', $validTransferCode);
-// $body = $response->getBody()->getContents();
-// echo $body;
+$validTransferCode = [
+     'form_params' => [
+          'transferCode' => '7e4545a9-e962-4816-a407-d5d56501775b',
+          'totalcost' => 2
+     ]
+];
+$response = $client->request('POST', 'transferCode', $validTransferCode);
+$body = $response->getBody()->getContents();
+echo $body;
 
 //withdrawal pengar och få en transfercode
 // $withdraw = [
@@ -43,20 +43,20 @@ $client = new Client([
 // echo $body->getContents();
 
 // use the transferCode to get money
-try {
-     $deposit = [
-          'form_params' => [
-               'user' => 'hugo',
-               'transferCode' => '7e4545a9-e962-4816-a407-d5d56501775b'
-          ]
-     ];
-     $response = $client->request('POST', 'deposit', $deposit);
-     $statusCode = $response->getStatusCode();
-     $body = $response->getBody()->getContents();
-     echo $body;
-} catch (ClientException $e) {
-     echo $e->getMessage();
-}
+// try {
+//      $deposit = [
+//           'form_params' => [
+//                'user' => 'hugo',
+//                'transferCode' => '7e4545a9-e962-4816-a407-d5d56501775b'
+//           ]
+//      ];
+//      $response = $client->request('POST', 'deposit', $deposit);
+//      $statusCode = $response->getStatusCode();
+//      $body = $response->getBody()->getContents();
+//      echo $body;
+// } catch (ClientException $e) {
+//      echo $e->getMessage();
+// }
 
 header('Content-Type: application/json');
 // echo json_encode($withdraw);

@@ -44,7 +44,7 @@ require 'app/autoload.php';
           $calendarBudget->addEvents($events['eventsBudget']);
           $calendarBudget->display(date('2024-01-01')); ?>
 
-          <form action="index.php" method="post">
+          <form action="index.php#anchor" method="post">
                <input type="text" name="firstname" placeholder="Name">
                <input type="text" name="lastname" placeholder="Lastname">
                <input type="text" name="email" placeholder="Email" class="emailInput">
@@ -80,7 +80,7 @@ require 'app/autoload.php';
           $calendarStandard->addEvents($events['eventsStandard']);
           $calendarStandard->display(date('2024-01-01')); ?>
 
-          <form action="index.php" method="post">
+          <form action="index.php#anchor" method="post">
                <input type="text" name="firstname" placeholder="Name">
                <input type="text" name="lastname" placeholder="Lastname">
                <input type="text" name="email" placeholder="Email" class="emailInput">
@@ -115,7 +115,7 @@ require 'app/autoload.php';
           $calendarLuxury->addEvents($events['eventsLuxury']);
           $calendarLuxury->display(date('2024-01-01')); ?>
 
-          <form action="index.php" method="post">
+          <form action="index.php#anchor" method="post">
                <input type="text" name="firstname" placeholder="Name">
                <input type="text" name="lastname" placeholder="Lastname">
                <input type="text" name="email" placeholder="Email" class="emailInput">
@@ -142,13 +142,14 @@ require 'app/autoload.php';
                } ?>
           </form>
      </section>
-     <section class="succesfullBooking">
+     <section id="anchor" class="succesfullBooking">
           <?php
-
           if (isset($message)) {
-               echo $message;
-          }
-          ?>
+               echo $message; ?>
+               <form action="displayjson.php" method="post" target="_blank">
+                    <input type="submit" value="Show JSON">
+               </form>
+          <?php } ?>
      </section>
 
 </main>
