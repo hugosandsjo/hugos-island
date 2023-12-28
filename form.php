@@ -89,7 +89,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
 
-     //check valid transfercode
+     //check valid transfercode and deposit if valid
      $validTransferCode = [
           'form_params' => [
                'transferCode' => $transferCode,
@@ -104,14 +104,27 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                // The transfer code was not accepted, display an error message
                $errors[] = 'Not a valid transfer code.' . '<br>';
           } else {
-               // The transfer code was accepted, proceed with the booking
+               // The transfer code was accepted, deposit the totalCost and proceed with the booking
+               try {
+                    $deposit = [
+                         'form_params' => [
+                              'user' => 'hugo',
+                              'transferCode' => $transferCode
+                         ]
+                    ];
+                    $response = $client->request('POST', 'deposit', $deposit);
+                    $statusCode = $response->getStatusCode();
+                    $body = $response->getBody()->getContents();
+                    echo $body;
+               } catch (ClientException $e) {
+                    echo $e->getMessage();
+               }
                // Insert your booking code here
+
           }
      } catch (ClientException $e) {
           $errors[] = 'Error: ' . $e->getMessage() . '<br>';
      }
-
-
 
      // checking availability
      function isDateAvailable($arrival, $departure, $roomId)
