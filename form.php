@@ -29,18 +29,21 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $selectedFeatures = [];
      }
      $roomType = $_POST['roomType'];
-     // Depending on roomtype
+     $baseCost = 0; // Initialize base cost for rooms
+     // update roomtype id depending on roomtype to insert into correct calendar
      if ($roomType === 'budget') {
           $roomId = 1;
+          $baseCost = 3;
      } elseif ($roomType === 'standard') {
           $roomId = 2;
+          $baseCost = 5;
      } elseif ($roomType === 'luxury') {
           $roomId = 3;
+          $baseCost = 10;
      } else {
           $errors[] = 'Invalid room type selected.' . '<br>';
      }
      $transferCode = $_POST['transferCode'];
-
 
      // calculate the total days of the booking using the arrival and departure dates and calcualting the days between
      $arrivalDate = new DateTime($arrival);
@@ -48,6 +51,20 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $interval = $arrivalDate->diff($departureDate);
      $days = $interval->format('%a') + 1; // the +1 since it only calculates the days inbetween
      $stayLength = $days;
+
+     $featureCost = 0;
+     if (in_array(1, $selectedFeatures,)) {
+          $featureCost = $featureCost + 2;
+     }
+     if (in_array(2, $selectedFeatures,)) {
+          $featureCost = $featureCost + 3;
+     }
+     if (in_array(3, $selectedFeatures,)) {
+          $featureCost = $featureCost + 4;
+     }
+
+     $totalCost = $baseCost * $stayLength + $featureCost; // The basecost if the room multiplied with lenght of stay + all the featurecosts
+
 
      // insert error messages to the $errors array if information is missing
      if ($email === '') {
@@ -123,14 +140,18 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                $message = "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
 
                // fetch the info for the json-array and calculate the total_cost of the users stay
+
                $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,
-            (SELECT COALESCE(SUM(rooms.price * bookings.days), 0) FROM bookings LEFT JOIN rooms ON bookings.room_id = rooms.id WHERE rooms.id = bookings.id) +
-            (SELECT COALESCE(SUM(features.cost), 0) FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = bookings.id) AS total_cost
-            FROM hotel
-            INNER JOIN bookings
-            ON hotel.id = bookings.hotel_id
-            ORDER BY bookings.id DESC
-            LIMIT 1');
+                    (SELECT COALESCE(SUM(rooms.price * bookings.days), 0) FROM bookings LEFT JOIN rooms ON rooms.id = bookings.room_id WHERE bookings.id = :booking_id) +
+                    (SELECT COALESCE(SUM(features.cost), 0) FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id) AS total_cost
+                    FROM hotel
+                    INNER JOIN bookings
+                    ON hotel.id = bookings.hotel_id
+                    WHERE bookings.id = :booking_id
+                    ORDER BY bookings.id DESC
+                    LIMIT 1');
+
+               $statement->bindParam(':booking_id', $lastGuestId);
                $statement->execute();
                $lastBooking = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -165,7 +186,9 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                     ]
                ];
 
-               //                print_r($response);
+               print_r($response);
+               print_r($totalCost);
+               print_r($selectedFeatures);
 
                $_SESSION['response'] = $response;
           }
