@@ -43,16 +43,20 @@ $client = new Client([
 // echo $body->getContents();
 
 // use the transferCode to get money
-$deposit = [
-     'form_params' => [
-          'user' => 'Rune',
-          'transferCode' => '7e4545a9-e962-4816-a407-d5d56501775b'
-     ]
-];
-
-$response = $client->request('POST', 'deposit', $deposit);
-$body = $response->getBody()->getContents();
-echo $body;
+try {
+     $deposit = [
+          'form_params' => [
+               'user' => 'hugo',
+               'transferCode' => '7e4545a9-e962-4816-a407-d5d56501775b'
+          ]
+     ];
+     $response = $client->request('POST', 'deposit', $deposit);
+     $statusCode = $response->getStatusCode();
+     $body = $response->getBody()->getContents();
+     echo $body;
+} catch (ClientException $e) {
+     echo $e->getMessage();
+}
 
 header('Content-Type: application/json');
 // echo json_encode($withdraw);
