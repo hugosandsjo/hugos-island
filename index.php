@@ -144,10 +144,10 @@ require 'app/autoload.php';
      </section>
      <section id="anchor" class="succesfullBooking">
           <?php
-          if (isset($message)) {
-               echo $message; ?>
-               <form action="displayjson.php" method="post" target="_blank">
-                    <input type="submit" value="Show JSON">
+          if (isset($message)) { ?><p>
+                    <?php echo $message; ?></p>
+               <form class="showJSON" action="displayjson.php" method="post" target="_blank">
+                    <input class="JSONbutton" type="submit" value="Show JSON">
                </form>
           <?php } ?>
      </section>

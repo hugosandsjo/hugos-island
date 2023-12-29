@@ -72,7 +72,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
 
      $totalCost = $baseCost * $stayLength + $featureCost; // The basecost if the room multiplied with lenght of stay + all the featurecosts
 
-
      // insert error messages to the $errors array if information is missing
      if ($email === '') {
           $errors[] = 'The email field is empty.'  . '<br>';
@@ -119,8 +118,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                } catch (ClientException $e) {
                     echo $e->getMessage();
                }
-               // Insert your booking code here
-
           }
      } catch (ClientException $e) {
           $errors[] = 'Error: ' . $e->getMessage() . '<br>';
