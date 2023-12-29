@@ -127,7 +127,8 @@ input {
 .checkbox {
   height: 25px;
   width: 25px;
-  background-color: #f7f5f1;
+  margin: 0rem 0.7rem 0rem 0rem;
+  background-color: var(--white);
 }
 
 .emailInput {
@@ -145,6 +146,11 @@ select {
 .features {
   display: flex;
   flex-wrap: wrap;
+  line-height: 1.5;
+}
+
+.featureLabel {
+  margin-right: 0.7rem;
 }
 
 .succesfullBooking {
@@ -152,6 +158,12 @@ select {
   flex-direction: column;
   align-items: center;
   width: auto;
+}
+
+.succesfullBooking p {
+  max-width: 400px;
+  line-height: 1.4;
+  font-size: 18px;
 }
 
 .showJSON {

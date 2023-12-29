@@ -188,7 +188,24 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                     }
                }
 
-               $message = "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
+               // Define the mapping from feature IDs to names
+               $featureNames = [
+                    1 => 'Peanuts',
+                    2 => 'Vodka',
+                    3 => 'Dinner',
+                    // Add more features as needed
+               ];
+
+               // Replace the IDs in $selectedFeatures with their corresponding names
+               $selectedFeatureNames = array_map(function ($featureId) use ($featureNames) {
+                    return $featureNames[$featureId];
+               }, $selectedFeatures);
+
+               // Convert the array of feature names to a string
+               $featuresString = implode(", ", $selectedFeatureNames);
+
+               // Include the feature names in the message
+               $message = "Congratulations $firstname $lastname! You have booked a room at The Florida Inn from $arrival to $departure including the following features: $featuresString. <br> Your grand total is: $totalCost";
 
                // fetch the info for the json-array and calculate the total_cost of the users stay
                $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,

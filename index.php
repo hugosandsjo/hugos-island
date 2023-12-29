@@ -36,7 +36,7 @@ require 'app/autoload.php';
      <section class="hotelName">
           <h1>Florida inn</h1>
      </section>
-
+     <section id="anchor" class="anchor"></section>
      <section class="booking budget">
 
           <!-- Displaying the budget calendar -->
@@ -56,11 +56,11 @@ require 'app/autoload.php';
                </select>
                <div class="features">
                     <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="1"> <!-- value 1 = peanuts feature -->
-                    <label for="peanuts">Peanuts 2kr</label>
+                    <label class="featureLabel" for="peanuts">Peanuts 2kr</label>
                     <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="2"> <!-- value 2 = vodka feature -->
-                    <label for="vodka">Vodka 3kr</label>
+                    <label class="featureLabel" for="vodka">Vodka 3kr</label>
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
-                    <label for="vodka">Three course dinner 4kr</label>
+                    <label class="featureLabel" for="vodka">Dinner 4kr</label>
                </div>
                <br><button type="submit">Book</button>
 
@@ -92,11 +92,11 @@ require 'app/autoload.php';
                </select>
                <div class="features">
                     <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="1"> <!-- value 1 = peanuts feature -->
-                    <label for="peanuts">Peanuts 2kr</label><br>
+                    <label class="featureLabel" for="peanuts">Peanuts 2kr</label><br>
                     <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="2"> <!-- value 2 = vodka feature -->
-                    <label for="vodka">Vodka 3kr</label><br>
+                    <label class="featureLabel" for="vodka">Vodka 3kr</label><br>
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
-                    <label for="vodka">Three course dinner 4kr</label><br>
+                    <label class="featureLabel" for="vodka">Dinner 4kr</label><br>
                </div>
                <br><button type="submit">Book</button>
 
@@ -127,11 +127,11 @@ require 'app/autoload.php';
                </select>
                <div class="features">
                     <input class="checkbox" type="checkbox" id="peanuts" name="features[]" value="1"> <!-- value 1 = peanuts feature -->
-                    <label for="peanuts">Peanuts 2kr</label><br>
+                    <label class="featureLabel" for="peanuts">Peanuts 2kr</label><br>
                     <input class="checkbox" type="checkbox" id="vodka" name="features[]" value="2"> <!-- value 2 = vodka feature -->
-                    <label for="vodka">Vodka 3kr</label><br>
+                    <label class="featureLabel" for="vodka">Vodka 3kr</label><br>
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
-                    <label for="vodka">Three course dinner 4kr</label><br>
+                    <label class="featureLabel" for="vodka">Dinner 4kr</label><br>
                </div>
                <br> <button type="submit">Book</button>
 
@@ -142,7 +142,8 @@ require 'app/autoload.php';
                } ?>
           </form>
      </section>
-     <section id="anchor" class="succesfullBooking">
+
+     <section class="succesfullBooking">
           <?php
           if (isset($message)) { ?><p>
                     <?php echo $message; ?></p>
@@ -151,7 +152,6 @@ require 'app/autoload.php';
                </form>
           <?php } ?>
      </section>
-
 </main>
 
 <?php require __DIR__ . '/footer.php'; ?>
