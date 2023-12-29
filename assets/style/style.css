@@ -26,8 +26,20 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem;
-  margin: 0 0 1rem 0;
+  text-align: center;
+  font-weight: 400;
+  font-size: 52px;
+}
+
+h3 {
+  font-size: 38px;
+  font-weight: 400;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
 }
 
 header {
@@ -59,6 +71,25 @@ nav > div:hover {
 
 #selectedNavItem {
   margin-left: 20px;
+}
+
+.featureDescription,
+.roomDescription {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.featureDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 280px;
+  min-height: 200px;
+}
+
+.featureImg {
+  max-width: 200px;
 }
 
 main {
@@ -93,7 +124,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 7rem 2rem 7rem 2rem;
 }
 
 .hidden {
@@ -110,6 +141,12 @@ form {
   height: 460px;
   padding: 0rem 2rem;
   /* background-color: rgb(210, 162, 255); */
+}
+
+button {
+  font-size: 28px;
+  font-family: 'EB Garamond', serif;
+  padding: 1rem 2rem;
 }
 
 input {
@@ -153,6 +190,11 @@ select {
   margin-right: 0.7rem;
 }
 
+.featurePrice {
+  display: flex;
+  justify-content: space-between;
+}
+
 .succesfullBooking {
   display: flex;
   flex-direction: column;
@@ -170,6 +212,10 @@ select {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.JSONbutton {
+  background-color: #dcdcdc;
 }
 
 .JSONbutton:hover {
