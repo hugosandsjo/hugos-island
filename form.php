@@ -69,8 +69,14 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      if (in_array(3, $selectedFeatures,)) {
           $featureCost = $featureCost + 4;
      }
+     // calculate totalcost
+     $totalCost = $baseCost * $stayLength + $featureCost; // The basecost if the room multiplied with lenght of stay + all the feature costs
 
-     $totalCost = $baseCost * $stayLength + $featureCost; // The basecost if the room multiplied with lenght of stay + all the featurecosts
+     // 30% discount if your stay is 3 days or longer
+     if ($stayLength >= 3) {
+          $totalCost = $totalCost * 0.7;
+          $totalCost = round($totalCost);
+     };
 
      // insert error messages to the $errors array if information is missing
      if ($email === '') {
@@ -87,6 +93,9 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      if ($arrival === '' || $departure === '') {
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
+     //      if ($transferCode === '') {
+     //           $errors[] = 'The transfercode is missing.'  . '<br>';
+     //      }
 
      //check valid transfercode and deposit if valid
      $validTransferCode = [
@@ -95,6 +104,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                'totalcost' => $totalCost
           ]
      ];
+
      try {
           $response = $client->request('POST', 'transferCode', $validTransferCode);
           $body = json_decode($response->getBody()->getContents(), true);
@@ -181,7 +191,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                $message = "Congratulations $firstname $lastname, you have booked a room at The Florida Inn from $arrival to $departure";
 
                // fetch the info for the json-array and calculate the total_cost of the users stay
-
                $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,
                     (SELECT COALESCE(SUM(rooms.price * bookings.days), 0) FROM bookings LEFT JOIN rooms ON rooms.id = bookings.room_id WHERE bookings.id = :booking_id) +
                     (SELECT COALESCE(SUM(features.cost), 0) FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id) AS total_cost
@@ -209,6 +218,10 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                          'name' => $feature['name'],
                          'cost' => $feature['cost']
                     ];
+               }
+               // make the 30% discount to also be applied to the json-file
+               if ($stayLength >= 3) {
+                    $lastBooking['total_cost'] = round($lastBooking['total_cost'] * 0.7);
                }
 
                // Create object from queries
