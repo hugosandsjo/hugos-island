@@ -33,6 +33,7 @@ CREATE TABLE bookings (
     id INTEGER PRIMARY KEY,
     arrival TEXT,
     departure TEXT,
+    days INTEGER,
     guest_id INTEGER,
     hotel_id INTEGER,
     room_id INTEGER,
@@ -61,13 +62,6 @@ CREATE TABLE rooms (
     price INTEGER
 );
 
-CREATE TABLE booking_rooms (
-    booking_id INTEGER,
-    room_id INTEGER,
-    FOREIGN KEY (booking_id) REFERENCES booking(id),
-    FOREIGN KEY (room_id) REFERENCES rooms(id)
-);
-
 CREATE TABLE features (
     id INTEGER PRIMARY KEY,
     "name" VARCHAR,
@@ -79,6 +73,13 @@ CREATE TABLE hotel (
     hotel VARCHAR,
     island VARCHAR,
     stars INTEGER
+);
+
+CREATE TABLE booking_rooms (
+    booking_id INTEGER,
+    room_id INTEGER,
+    FOREIGN KEY (booking_id) REFERENCES booking(id),
+    FOREIGN KEY (room_id) REFERENCES rooms(id)
 );
 
 ```
