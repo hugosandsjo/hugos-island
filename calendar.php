@@ -2,12 +2,31 @@
 
 require 'vendor/autoload.php';
 
+// start calendar
 use benhall14\phpCalendar\Calendar as Calendar;
 
-// Create a new calendar
+// create new calendars for each room standard
 $calendarBudget = new Calendar();
 $calendarStandard = new Calendar();
 $calendarLuxury = new Calendar();
+
+// function checking availability
+function isDateAvailable(string $arrival, string $departure, int $roomId)
+{
+                    $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
+                    $statement = $database->prepare(
+                                        'SELECT arrival, departure
+              FROM bookings
+              WHERE room_id = :roomId AND ((arrival <= :departure AND departure >= :arrival) OR (arrival >= :arrival AND departure <= :departure))'
+                    );
+                    $statement->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+                    $statement->bindParam(':arrival', $arrival, PDO::PARAM_STR);
+                    $statement->bindParam(':departure', $departure, PDO::PARAM_STR);
+                    $statement->execute();
+                    $bookings = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                    return empty($bookings);
+}
 
 // function to add a booking to the events array and get displayed on the calender depending on the roomtype
 function addBookingsToEvents($roomId)

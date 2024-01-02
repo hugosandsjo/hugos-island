@@ -150,6 +150,10 @@ button {
   padding: 1rem 2rem;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 input {
   height: 4rem;
   width: 45%;
@@ -286,3 +290,7 @@ tbody {
 .date-selected-range {
   background-color: rgb(255, 162, 205) !important;
 }
+
+/* .calendar tbody tr td.today {
+  background: none !important;
+} */

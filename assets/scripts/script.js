@@ -47,7 +47,6 @@ function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
         departureInput.value = selectedDate; // Set the departure date
         clickCount = -1; // Reset click count
       }
-
       clickCount++; // Increment click count
     });
   });
