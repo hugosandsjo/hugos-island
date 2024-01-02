@@ -13,8 +13,6 @@ $client = new Client([
     'timeout' => 2.0,
 ]);
 
-require __DIR__ . '/functions.php';
-
 // post logic
 if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'], $_POST['roomType'], $_POST['transferCode'])) {
 
@@ -132,7 +130,5 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     } catch (ClientException $e) {
         $errors[] = 'Error: ' . $e->getMessage() . '<br>';
     }
-
-    //require insert
     require __DIR__ . '/insert.php';
 }

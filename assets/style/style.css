@@ -125,7 +125,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 7rem 2rem 7rem 2rem;
+  padding: 1rem 2rem 7rem 2rem;
 }
 
 .hidden {
@@ -141,7 +141,6 @@ form {
   max-width: 500px;
   height: 460px;
   padding: 0rem 2rem;
-  /* background-color: rgb(210, 162, 255); */
 }
 
 button {
@@ -229,6 +228,22 @@ select {
   background-color: black;
 }
 
+.calendarColors {
+  display: flex;
+  padding: 5rem 3rem 0rem 3rem;
+}
+
+.calendarColor {
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  margin-right: 5px;
+}
+
+.colorBox {
+  display: flex;
+}
+
 /* calendar styles */
 
 .calendar {
@@ -246,7 +261,7 @@ select {
 .date-selected-end,
 .date-selected,
 .date-selected-range {
-  background-color: rgb(172, 172, 172) !important;
+  background-color: rgb(109, 167, 234) !important;
 }
 
 tbody {
@@ -264,7 +279,8 @@ tbody {
   cursor: default !important;
 }
 
-.day:hover {
+.day:hover,
+.calendar tbody tr td.today:hover {
   background-color: rgb(166, 221, 154) !important;
   cursor: pointer;
 }
@@ -284,13 +300,8 @@ tbody {
 
 .calendar tbody tr td.day div:first-child {
   padding-top: 15px !important;
-  /* padding: 14px !important; */
 }
 
 .date-selected-range {
   background-color: rgb(255, 162, 205) !important;
 }
-
-/* .calendar tbody tr td.today {
-  background: none !important;
-} */

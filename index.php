@@ -1,4 +1,5 @@
 <?php
+
 // declare(strict_types=1);
 declare(strict_types=1);
 
@@ -12,8 +13,10 @@ require 'app/autoload.php';
 // echo $_ENV['API_KEY'];
 
 require __DIR__ . '/header.php';
+require __DIR__ . '/functions.php';
 require __DIR__ . '/calendar.php';
 require __DIR__ . '/form.php';
+
 ?>
 
 <nav>
@@ -21,7 +24,6 @@ require __DIR__ . '/form.php';
      <div class="standard" id="standardNavItem">Standard</div>
      <div class="luxury" id="luxuryNavItem">Luxury</div>
 </nav>
-
 
 <main>
      <header>
@@ -102,9 +104,22 @@ require __DIR__ . '/form.php';
                     <h4>Choose</h4>
                </div>
           </div>
-
      </section>
-     <section id="anchor" class="anchor"></section>
+     <section id="anchor" class="anchor"></section> <!-- Section to anchor the viewport after the form is submitted -->
+     <section class="calendarColors">
+          <div class="calendarColor">
+               <div class="colorBox"></div>
+               <p>Booked</p>
+          </div>
+          <div class="calendarColor">
+               <div class="colorBox"></div>
+               <p>Booked</p>
+          </div>
+          <div class="calendarColor">
+               <div class="colorBox"></div>
+               <p>Booked</p>
+          </div>
+     </section>
      <section class="booking budget">
 
           <!-- Displaying the budget calendar -->
@@ -137,7 +152,6 @@ require __DIR__ . '/form.php';
                          echo '<br>' . $error;
                     }
                } ?>
-
           </form>
 
      </section>

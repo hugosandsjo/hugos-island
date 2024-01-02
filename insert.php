@@ -11,7 +11,6 @@ if (!isset($errors)) {
         $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->execute();
-
         // Get the last inserted guest_id to use in the booking table
         $lastGuestId = $database->lastInsertId();
         // insert into bookings
@@ -102,9 +101,9 @@ if (!isset($errors)) {
                 ]
         ];
 
-        print_r($response);
-        print_r($totalCost);
-        print_r($selectedFeatures);
+        //         print_r($response);
+        //         print_r($totalCost);
+        //         print_r($selectedFeatures);
 
         $_SESSION['response'] = $response;
 }
