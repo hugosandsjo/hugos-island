@@ -11,10 +11,10 @@ require 'app/autoload.php';
 // echo '<pre>';
 // echo $_ENV['API_KEY'];
 
+require __DIR__ . '/header.php';
+require __DIR__ . '/calendar.php';
+require __DIR__ . '/form.php';
 ?>
-<?php require __DIR__ . '/header.php'; ?>
-<?php require __DIR__ . '/calendar.php'; ?>
-<?php require __DIR__ . '/form.php'; ?>
 
 <nav>
      <div class="budget" id="budgetNavItem">Budget</div>
