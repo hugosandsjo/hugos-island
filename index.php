@@ -108,16 +108,16 @@ require __DIR__ . '/form.php';
      <section id="anchor" class="anchor"></section> <!-- Section to anchor the viewport after the form is submitted -->
      <section class="calendarColors">
           <div class="calendarColor">
-               <div class="colorBox"></div>
+               <div class="colorBox grayBox"></div>
+               <p>Today</p>
+          </div>
+          <div class="calendarColor">
+               <div class="colorBox orangeBox"></div>
                <p>Booked</p>
           </div>
           <div class="calendarColor">
-               <div class="colorBox"></div>
-               <p>Booked</p>
-          </div>
-          <div class="calendarColor">
-               <div class="colorBox"></div>
-               <p>Booked</p>
+               <div class="colorBox blueBox"></div>
+               <p>Your choice</p>
           </div>
      </section>
      <section class="booking budget">
