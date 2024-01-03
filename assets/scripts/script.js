@@ -101,9 +101,6 @@ navItems.forEach(function (navItem) {
   });
 });
 
-// Select all navigation items
-// let navItems = document.querySelectorAll('nav div');
-
 // Add click event listener to each navigation item
 navItems.forEach(function (navItem) {
   navItem.addEventListener('click', function () {
