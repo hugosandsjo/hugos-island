@@ -1,3 +1,22 @@
+<?php
+$user = [
+    'username' => 'hugo',
+    'password' => 'b9a6417f-4df0-4b5f-8b19-319b67fe8d43'
+];
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    if ($_POST['username'] === $user['username'] && $_POST['password'] === $user['password']) {
+        header('Location: admin.php');
+        exit;
+    } else {
+        echo 'Wrong username or password';
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

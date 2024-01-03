@@ -79,7 +79,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $totalCost = round($totalCost * 0.7);
     }
 
-    // check if form fields are empty
+    // check if form fields are empty and display error message if thats the case
     validateField($email, 'The email field is empty');
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'The email address is not valid.' . '<br>';
@@ -89,7 +89,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     if ($arrival === '' || $departure === '') {
         $errors[] = 'You havent chosen your dates.' . '<br>';
     }
-    validateField($transferCode, 'The transfercode is missing');
+    //     validateField($transferCode, 'The transfercode is missing');
     // if date is not available
     if (!isDateAvailable($arrival, $departure, $roomId)) {
         $errors[] = "The selected dates are already booked. Please choose a different date.";
