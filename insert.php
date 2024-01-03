@@ -3,15 +3,16 @@
 // if no errors, insert into database
 if (!isset($errors)) {
 
-    $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');  // connect the database
+    // connect the database
+    $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
 
-    //insert into guests
+    // insert into guests
     $statement = $database->prepare('INSERT INTO guests (firstname, lastname, email) VALUES (:firstname, :lastname, :email)');
     $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
     $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
     $statement->bindParam(':email', $email, PDO::PARAM_STR);
     $statement->execute();
-    // Get the last inserted guest_id to use in the booking table
+    // get the last inserted guest_id to use in the booking table
     $lastGuestId = $database->lastInsertId();
     // insert into bookings
     $statement = $database->prepare('INSERT INTO bookings (arrival, departure, days, guest_id, hotel_id, room_id) VALUES (:arrival, :departure, :days, :guest_id, :hotel_id, :room_id)');
@@ -33,23 +34,20 @@ if (!isset($errors)) {
         }
     }
 
-    // Define the mapping from feature IDs to names
+    // define the mapping from feature IDs to names
     $featureNames = [
         1 => 'Cashews',
         2 => 'Vodka',
         3 => 'Dinner',
     ];
 
-    // Replace the IDs in $selectedFeatures with their corresponding names
+    // replace the IDs in $selectedFeatures with their corresponding names
     $selectedFeatureNames = array_map(function ($featureId) use ($featureNames) {
         return $featureNames[$featureId];
     }, $selectedFeatures);
 
-    // Convert the array of feature names to a string
+    // convert the array of feature names to a string
     $featuresString = implode(", ", $selectedFeatureNames);
-
-    // Include the feature names in the message
-    $message = "Congratulations $firstname $lastname! You have booked a $roomType room at Harvest Haven from $arrival to $departure including the following features: <br> $featuresString. <br> Your grand total is: $totalCost";
 
     // fetch the info for the json-array and calculate the total_cost of the users stay
     $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,
@@ -84,6 +82,12 @@ if (!isset($errors)) {
     if ($stayLength >= 3) {
         $lastBooking['total_cost'] = round($lastBooking['total_cost'] * 0.7);
     }
+
+    // define the total cost for the message
+    $totalCost = $lastBooking['total_cost'];
+
+    // include the feature names in the message
+    $message = "Congratulations $firstname $lastname! You have booked a $roomType room at Harvest Haven from $arrival to $departure including the following features: <br> $featuresString. <br> Your grand total is: $totalCost";
 
     // Create object from queries
     $response = [

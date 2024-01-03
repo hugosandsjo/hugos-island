@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Psr7\Query;
+
 $user = [
     'username' => 'hugo',
     'password' => 'b9a6417f-4df0-4b5f-8b19-319b67fe8d43'
@@ -14,8 +17,17 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         echo 'Wrong username or password';
     }
 }
-?>
+// to get the prices for the rooms and make them updateable in admin.php
+$database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
+$query = $database->prepare("SELECT room_class, price FROM rooms");
+$query->execute();
+$roomPrices = $query->fetchAll(PDO::FETCH_ASSOC);
+// and the same for feature prices
+$query = $database->prepare("SELECT id, cost FROM features");
+$query->execute();
+$featurePrices = $query->fetchAll(PDO::FETCH_ASSOC);
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">

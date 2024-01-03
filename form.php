@@ -22,7 +22,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $arrival = $_POST['arrival'];
     $departure = $_POST['departure'];
-    $hotelId = (int) 1; // important hotelId and is always the same
+    $hotelId = (int) 1; // important hotelId (is always the same)
     $transferCode = $_POST['transferCode'];
     if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
         $selectedFeatures = $_POST['features']; // This will be an array
@@ -34,17 +34,17 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     }
     // get room type
     $roomType = $_POST['roomType'];
-    $baseCost = 0; // Initialize base cost for rooms
+    $baseCost = (int) 0; // Initialize base cost for rooms
     // update roomtype id depending on roomtype to insert into correct calendar
     if ($roomType === 'budget') {
-        $roomId = 1;
-        $baseCost = 3;
+        $roomId = (int) 1;
+        $baseCost = (int) 3;
     } elseif ($roomType === 'standard') {
-        $roomId = 2;
-        $baseCost = 5;
+        $roomId = (int) 2;
+        $baseCost = (int) 5;
     } elseif ($roomType === 'luxury') {
-        $roomId = 3;
-        $baseCost = 10;
+        $roomId = (int) 3;
+        $baseCost = (int) 10;
     } else {
         $errors[] = 'Invalid room type selected.' . '<br>';
     }

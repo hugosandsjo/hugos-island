@@ -64,4 +64,26 @@ if (isset($_POST['cashews']) && isset($_POST['wine']) && isset($_POST['dinner'])
      echo 'Please fill in all fields';
 }
 
+if (isset($_POST['budget']) && isset($_POST['standard']) && isset($_POST['luxury'])) {
+     $budget = $_POST['budget'];
+     $standard = $_POST['standard'];
+     $luxury = $_POST['luxury'];
+
+     $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');  // connect the database
+
+     $statement = $database->prepare('UPDATE rooms SET price = :price WHERE id = 1');
+     $statement->bindParam(':price', $budget, PDO::PARAM_INT);
+     $statement->execute();
+
+     $statement = $database->prepare('UPDATE rooms SET price = :price WHERE id = 2');
+     $statement->bindParam(':price', $standard, PDO::PARAM_INT);
+     $statement->execute();
+
+     $statement = $database->prepare('UPDATE rooms SET price = :price WHERE id = 3');
+     $statement->bindParam(':price', $luxury, PDO::PARAM_INT);
+     $statement->execute();
+} else {
+     echo 'Please fill in all fields';
+}
+
 ?>

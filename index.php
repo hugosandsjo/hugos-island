@@ -45,7 +45,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/tent.png">
             <p>Experience rustic charm in our cozy tent accommodations. Embrace the great outdoors while enjoying the comforts of a snug haven. Nestled amidst nature's embrace, our tents offer a unique blend of adventure and comfort. Relax under the stars, surrounded by the serene beauty of our estate, and create unforgettable memories in this intimate, nature-infused setting.</p>
             <div class="featurePrice">
-                <h4>3kr</h4>
+                <h4><?= $roomPrices['0']['price'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -54,7 +54,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/house.png">
             <p>Step into a world of understated elegance within our charming cabin rooms. Thoughtfully designed for comfort and tranquility, these cozy yet stylish accommodations offer a retreat from the everyday hustle. Embrace the snug ambiance of our cabins, nestled within our historic estate, where every detail invites you to unwind and immerse yourself in the serenity of our surroundings.</p>
             <div class="featurePrice">
-                <h4>5kr</h4>
+                <h4><?= $roomPrices['1']['price'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -63,7 +63,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/castle.png">
             <p>Indulge in the epitome of luxury within our grand manor rooms. Opulence meets heritage in these lavishly appointed accommodations, offering an unparalleled experience of comfort and sophistication. Revel in the grandeur of a smaller mansion, where every corner exudes elegance, complemented by sweeping views of our picturesque estate. Immerse yourself in a world of refined indulgence, where luxury meets history in seamless harmony.</p>
             <div class="featurePrice">
-                <h4>10kr</h4>
+                <h4><?= $roomPrices['2']['price'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -80,7 +80,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/cashew.png">
             <p>Indulge in our exclusive experience with handpicked cashews sourced from our historic orchard gardens. Each nut a testament to our rich heritage, these locally grown delights offer a taste of the land’s legacy. Roasted to perfection, they accompany your stay with a crunchy, flavorful essence that echoes the natural beauty surrounding our esteemed hotel.</p>
             <div class="featurePrice">
-                <h4>2kr</h4>
+                <h4><?= $featurePrices['0']['cost'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -90,7 +90,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/wine.png">
             <p>Savor the essence of our region with a selection of meticulously crafted wines, harvested from the sprawling vineyards embracing our historic estate. Each bottle holds the story of our land, bottled elegance that speaks of the sun-soaked hills and cool, crisp air. With every sip, immerse yourself in the flavors of our heritage, indulging in the luxurious taste of our exclusive, locally produced wines.</p>
             <div class="featurePrice">
-                <h4>3kr</h4>
+                <h4><?= $featurePrices['1']['cost'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -100,7 +100,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/dinner.png">
             <p>Embark on a gastronomic voyage celebrating the bounty of our surroundings. Our three-course meal is a symphony of locally sourced ingredients, meticulously curated to showcase the vibrant flavors of our region. From the first bite to the last, each dish tells the tale of our land's fertile soil and the skill of our passionate chefs. Delight in this culinary masterpiece amid the serene backdrop of our historic hotel, where nature's abundance meets culinary excellence.</p>
             <div class="featurePrice">
-                <h4>4kr</h4>
+                <h4><?= $featurePrices['2']['cost'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -175,7 +175,7 @@ require __DIR__ . '/form.php';
                     <input class="checkbox" type="checkbox" id="wine" name="features[]" value="2"> <!-- value 2 = vodka feature -->
                     <label class="featureLabel" for="wine">Wine 3kr</label><br>
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
-                    <label class="featureLabel" for="dinner">Dinner 4kr</label><br>
+                    <label class="featureLabel" for="dinner">4kr</label><br>
                 </div>
                 <br><button type="submit">Book</button>
 
