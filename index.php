@@ -80,7 +80,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/cashew.png">
             <p>Indulge in our exclusive experience with handpicked cashews sourced from our historic orchard gardens. Each nut a testament to our rich heritage, these locally grown delights offer a taste of the land’s legacy. Roasted to perfection, they accompany your stay with a crunchy, flavorful essence that echoes the natural beauty surrounding our esteemed hotel.</p>
             <div class="featurePrice">
-                <h4><?= $featurePrices['0']['cost'] ?> kr</h4>
+                <h4><?= $featurePrices[0]['cost'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -90,7 +90,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/wine.png">
             <p>Savor the essence of our region with a selection of meticulously crafted wines, harvested from the sprawling vineyards embracing our historic estate. Each bottle holds the story of our land, bottled elegance that speaks of the sun-soaked hills and cool, crisp air. With every sip, immerse yourself in the flavors of our heritage, indulging in the luxurious taste of our exclusive, locally produced wines.</p>
             <div class="featurePrice">
-                <h4><?= $featurePrices['1']['cost'] ?> kr</h4>
+                <h4><?= $featurePrices[1]['cost'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -100,7 +100,7 @@ require __DIR__ . '/form.php';
             <img class="featureImg" src="assets/images/dinner.png">
             <p>Embark on a gastronomic voyage celebrating the bounty of our surroundings. Our three-course meal is a symphony of locally sourced ingredients, meticulously curated to showcase the vibrant flavors of our region. From the first bite to the last, each dish tells the tale of our land's fertile soil and the skill of our passionate chefs. Delight in this culinary masterpiece amid the serene backdrop of our historic hotel, where nature's abundance meets culinary excellence.</p>
             <div class="featurePrice">
-                <h4><?= $featurePrices['2']['cost'] ?> kr</h4>
+                <h4><?= $featurePrices[2]['cost'] ?> kr</h4>
                 <h4>Choose</h4>
             </div>
         </div>
@@ -108,15 +108,15 @@ require __DIR__ . '/form.php';
     <section class="offer">
         <h2>Book three days or more and get 30% off your stay!</h2>
     </section>
-    <section id="anchor" class="anchor"></section> <!-- Section to anchor the viewport after the form is submitted -->
+    <section id="anchor" class="anchor"></section> <!-- section to anchor the viewport after the form is submitted -->
 
     <section class="booking budget">
         <div class="calendarCategory">
             <h3>Budget</h3>
         </div>
         <div class="formContainer">
-            <!-- Displaying the budget calendar -->
-            <?php $events = addBookingsToEvents('1');
+            <!-- displaying the budget calendar -->
+            <?php $events = addBookingsToEvents(1);
             $calendarBudget->addEvents($events['eventsBudget']);
             $calendarBudget->display(date('2024-01-01')); ?>
 
@@ -145,6 +145,7 @@ require __DIR__ . '/form.php';
                         echo '<br>' . $error;
                     }
                 } ?>
+
             </form>
         </div>
     </section>
@@ -155,7 +156,7 @@ require __DIR__ . '/form.php';
         </div>
         <div class="formContainer">
             <!-- displaying the standard calendar -->
-            <?php $events = addBookingsToEvents('2');
+            <?php $events = addBookingsToEvents(2);
             $calendarStandard->addEvents($events['eventsStandard']);
             $calendarStandard->display(date('2024-01-01')); ?>
 
@@ -184,6 +185,7 @@ require __DIR__ . '/form.php';
                         echo '<br>' . $error;
                     }
                 } ?>
+
             </form>
         </div>
     </section>
@@ -194,7 +196,7 @@ require __DIR__ . '/form.php';
         </div>
         <div class="formContainer">
             <!-- displaying the luxury calendar -->
-            <?php $events = addBookingsToEvents('3');
+            <?php $events = addBookingsToEvents(3);
             $calendarLuxury->addEvents($events['eventsLuxury']);
             $calendarLuxury->display(date('2024-01-01')); ?>
 
@@ -223,6 +225,7 @@ require __DIR__ . '/form.php';
                         echo '<br>' . $error;
                     }
                 } ?>
+
             </form>
         </div>
     </section>

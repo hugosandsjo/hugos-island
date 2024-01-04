@@ -13,7 +13,7 @@ body {
   font-style: normal;
   color: rgb(0, 0, 0);
   margin: 0;
-  padding: 2rem 3rem;
+  padding: 2rem 2rem 2rem 3rem;
   font-size: 16px;
   background-color: var(--white);
 }
@@ -190,6 +190,7 @@ input {
   width: 94.5%;
 }
 
+/* dont display roomtype */
 select {
   display: none;
 }

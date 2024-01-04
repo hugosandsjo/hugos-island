@@ -16,16 +16,16 @@ $client = new Client([
 // post logic
 if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'], $_POST['roomType'], $_POST['transferCode'])) {
 
-    // Trimming and sanitizing
+    // trimming and sanitizing
     $firstname = ucfirst(strtolower(htmlspecialchars(str_replace(' ', '', trim($_POST['firstname'])))));
     $lastname = ucfirst(strtolower(htmlspecialchars(str_replace(' ', '', trim($_POST['lastname'])))));
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $arrival = $_POST['arrival'];
     $departure = $_POST['departure'];
-    $hotelId = (int) 1; // important hotelId (is always the same)
+    $hotelId = (int) 1; // important hotelId (is always the same since there is only one hotel)
     $transferCode = $_POST['transferCode'];
     if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
-        $selectedFeatures = $_POST['features']; // This will be an array
+        $selectedFeatures = $_POST['features']; // this will be an array
         foreach ($selectedFeatures as $featureId) {
             // Process each selected feature
         }
@@ -34,7 +34,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     }
     // get room type
     $roomType = $_POST['roomType'];
-    $baseCost = (int) 0; // Initialize base cost for rooms
+    $baseCost = (int) 0; // initialize base cost for rooms
     // update roomtype id depending on roomtype to insert into correct calendar
     if ($roomType === 'budget') {
         $roomId = (int) 1;
@@ -108,10 +108,10 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $body = json_decode($response->getBody()->getContents(), true);
 
         if (isset($body['error']) && $body['error'] == "Not a valid GUID") {
-            // The transfer code was not accepted, display an error message
+            // the transfer code was not accepted, display an error message
             $errors[] = 'Not a valid transfer code.' . '<br>';
         } else {
-            // The transfer code was accepted, deposit the totalCost and proceed with the booking
+            // the transfer code was accepted, deposit the totalCost and proceed with the booking
             try {
                 $deposit = [
                     'form_params' => [
@@ -130,5 +130,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     } catch (ClientException $e) {
         $errors[] = 'Error: ' . $e->getMessage() . '<br>';
     }
+
+    // if succesfull insert into database in this file
     require __DIR__ . '/insert.php';
 }
