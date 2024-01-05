@@ -1,16 +1,16 @@
-// Select the "Budget" navigation item
+// select the "Budget" navigation item
 let budgetNavItem = document.querySelector('#budgetNavItem');
 
-// Change the ID of the "Budget" navigation item
+// change the ID of the "Budget" navigation item
 budgetNavItem.id = 'selectedNavItem';
 
-// Add the 'navItemSelected' class to the "Budget" navigation item
+// add the 'navItemSelected' class to the "Budget" navigation item
 budgetNavItem.classList.add('navItemSelected');
 
-// Select the "Budget" section
+// select the "Budget" section
 let budgetSection = document.querySelector('.booking.budget');
 
-// Show the "Budget" section
+// show the "Budget" section
 budgetSection.style.display = 'flex';
 
 // adds class mask to selected dates in the calendar
@@ -19,7 +19,7 @@ let clickCount = 0;
 document.querySelectorAll('.calendar td').forEach(function (cell) {
   cell.addEventListener('click', function () {
     if (clickCount === 0) {
-      // Remove 'mask-start' and 'mask-end' classes from all td elements
+      // remove 'mask-start' and 'mask-end' classes from all td elements
       document
         .querySelectorAll(
           '.calendar td.date-selected-start, .calendar td.date-selected-end',
@@ -32,37 +32,99 @@ document.querySelectorAll('.calendar td').forEach(function (cell) {
     clickCount++;
 
     if (clickCount === 1) {
-      this.classList.add('date-selected-start'); // Add 'mask-start' class to first clicked td
+      this.classList.add('date-selected-start'); // add 'mask-start' class to first clicked td
     } else if (clickCount === 2) {
-      this.classList.add('date-selected-end'); // Add 'mask-end' class to second clicked td
-      clickCount = 0; // Reset click count
+      this.classList.add('date-selected-end'); // add 'mask-end' class to second clicked td
+      clickCount = 0; // reset click count
     }
   });
 });
 
-// this function handles the click event on the calendar day boxes
+// function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
+//   let clickCount = 0;
+//   let arrivalInput = document.getElementById(arrivalId);
+//   let departureInput = document.getElementById(departureId);
+//   let selectedBoxes = [];
+
+//   document.querySelectorAll(dayBoxClass).forEach(function (box) {
+//     let parentTd = box.parentElement;
+
+//     parentTd.addEventListener('click', function () {
+//       let selectedDay = box.textContent;
+//       let selectedDate = '2024-01-' + selectedDay.padStart(2, '0');
+
+//       if (clickCount === 0) {
+//         arrivalInput.value = selectedDate;
+//         selectedBoxes.push(box);
+//       } else if (clickCount === 1) {
+//         departureInput.value = selectedDate;
+//         selectedBoxes.push(box);
+
+//         let startIndex = Array.from(
+//           document.querySelectorAll(dayBoxClass),
+//         ).indexOf(selectedBoxes[0]);
+//         let endIndex = Array.from(
+//           document.querySelectorAll(dayBoxClass),
+//         ).indexOf(selectedBoxes[1]);
+
+//         document.querySelectorAll(dayBoxClass).forEach((box, index) => {
+//           if (index >= startIndex && index <= endIndex) {
+//             box.parentElement.classList.add('date-selected');
+//           }
+//         });
+
+//         clickCount = -1;
+//         selectedBoxes = [];
+//       }
+
+//       clickCount++;
+//     });
+//   });
+// }
+
 function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
-  let clickCount = 0; // Keeps track of the number of clicks
-  let arrivalInput = document.getElementById(arrivalId); // Input field for arrival date
-  let departureInput = document.getElementById(departureId); // Input field for departure date
+  let clickCount = 0;
+  let arrivalInput = document.getElementById(arrivalId);
+  let departureInput = document.getElementById(departureId);
+  let selectedBoxes = [];
 
-  // loop through all the calendar day boxes
   document.querySelectorAll(dayBoxClass).forEach(function (box) {
-    let parentTd = box.parentElement; // Get the parent td of the .cal-day-box
+    let parentTd = box.parentElement;
 
-    // add click event listener to the parent td
     parentTd.addEventListener('click', function () {
-      let selectedDay = box.textContent; // get the day from the .cal-day-box
-      let selectedDate = '2024-01-' + selectedDay.padStart(2, '0'); // construct the date
+      let selectedDay = box.textContent;
+      let selectedDate = '2024-01-' + selectedDay.padStart(2, '0');
 
-      // update the appropriate form input based on the click count
       if (clickCount === 0) {
-        arrivalInput.value = selectedDate; // set the arrival date
+        // Remove the .date-selected class from all elements
+        document.querySelectorAll('.date-selected').forEach((element) => {
+          element.classList.remove('date-selected');
+        });
+
+        arrivalInput.value = selectedDate;
+        selectedBoxes.push(parentTd);
       } else if (clickCount === 1) {
-        departureInput.value = selectedDate; // set the departure date
-        clickCount = -1; // reset click count
+        departureInput.value = selectedDate;
+        selectedBoxes.push(parentTd);
+
+        let startIndex = Array.from(document.querySelectorAll(dayBoxClass))
+          .map((box) => box.parentElement)
+          .indexOf(selectedBoxes[0]);
+        let endIndex = Array.from(document.querySelectorAll(dayBoxClass))
+          .map((box) => box.parentElement)
+          .indexOf(selectedBoxes[1]);
+
+        document.querySelectorAll(dayBoxClass).forEach((box, index) => {
+          if (index >= startIndex && index <= endIndex) {
+            box.parentElement.classList.add('date-selected');
+          }
+        });
+
+        clickCount = -1;
+        selectedBoxes = [];
       }
-      clickCount++; // increment click count
+
+      clickCount++;
     });
   });
 }
@@ -78,7 +140,7 @@ let sections = document.querySelectorAll('section.booking');
 
 navItems.forEach((navItem) => {
   navItem.addEventListener('click', function () {
-    // If the clicked navigation item is already selected, do nothing
+    // if the clicked navigation item is already selected, do nothing
     if (this.classList.contains('navItemSelected')) {
       return;
     }

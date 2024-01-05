@@ -38,13 +38,13 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     // update roomtype id depending on roomtype to insert into correct calendar
     if ($roomType === 'budget') {
         $roomId = (int) 1;
-        $baseCost = (int) 3;
+        $baseCost = (int) $featureCosts[0]['cost'];
     } elseif ($roomType === 'standard') {
         $roomId = (int) 2;
-        $baseCost = (int) 5;
+        $baseCost = (int) $featureCosts[1]['cost'];
     } elseif ($roomType === 'luxury') {
         $roomId = (int) 3;
-        $baseCost = (int) 10;
+        $baseCost = (int) $featureCosts[2]['cost'];
     } else {
         $errors[] = 'Invalid room type selected.' . '<br>';
     }
@@ -89,7 +89,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     if ($arrival === '' || $departure === '') {
         $errors[] = 'You havent chosen your dates.' . '<br>';
     }
-    //     validateField($transferCode, 'The transfercode is missing');
+    validateField($transferCode, 'The transfercode is missing');
     // if date is not available
     if (!isDateAvailable($arrival, $departure, $roomId)) {
         $errors[] = "The selected dates are already booked. Please choose a different date.";
@@ -122,7 +122,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
                 $response = $client->request('POST', 'deposit', $deposit);
                 $statusCode = $response->getStatusCode();
                 $body = $response->getBody()->getContents();
-                echo $body;
+                //                 echo $body;
             } catch (ClientException $e) {
                 echo $e->getMessage();
             }
