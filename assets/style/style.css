@@ -36,13 +36,14 @@ h2 {
 }
 
 h3 {
-  font-size: 38px;
+  font-size: 41px;
   font-weight: 400;
 }
 
 h4 {
   font-size: 22px;
-  font-weight: 500;
+  font-style: italic;
+  font-weight: 400;
   margin: 0;
 }
 
@@ -104,10 +105,9 @@ nav > div:hover {
 }
 
 .introduction {
-  max-width: 520px;
-  font-size: 28px;
-  text-align: right;
-
+  max-width: 540px;
+  font-size: 32px;
+  text-align: center;
   margin: 0;
 }
 
@@ -125,7 +125,7 @@ nav > div:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 0rem 2rem 2rem 2rem;
 }
 
 .formContainer {
@@ -237,6 +237,7 @@ select {
 .calendarColors {
   display: flex;
   justify-content: center;
+  margin-top: 2rem;
   /* padding: 5rem 0rem 4rem 0rem; */
 }
 
@@ -270,9 +271,30 @@ select {
 }
 
 footer {
+  margin-top: 4rem;
   width: 100%;
-  height: 400px;
-  background-color: #fd9768;
+  border-top: 1px solid black;
+  padding: 2rem 2rem 0rem 2rem;
+}
+
+.footerForm {
+  margin-top: 1rem;
+  max-width: none;
+  height: auto;
+  width: 50%;
+  padding: 0;
+}
+
+.footerForm input {
+  font-size: 18px;
+  height: 2.5rem;
+  width: 25%;
+  padding: 0.5rem 0.7rem;
+}
+
+.footerForm button {
+  font-size: 18px;
+  padding: 0.4rem 1rem;
 }
 
 .offer {

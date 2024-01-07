@@ -1,16 +1,16 @@
 
-# Florida
+# Harvest Haven
 
-Some text about your lovely island
+At Harvest Haven, our story unfolds through locally produced wines and culinary delights meticulously crafted from the island's bounty. We blend a passion for exceptional cuisine with a reverence for Terra Verde's stunning landscapes.
 
-# Florida project
+# Harvest haven
 
 Why not add some info about the hotel of your dreams?
 <img src="https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif" width="700" height="350" />
 
 # Instructions
 
-If your project requires some installation or similar, please inform your user 'bout it. For instance, if you want a more decent indentation of your .php files, you could edit [.editorconfig]('/.editorconfig').
+Just make your booking and enjoy your vacation
 
 # Code review
 

@@ -1,15 +1,12 @@
+// make budget be selected at page load
 // select the "Budget" navigation item
 let budgetNavItem = document.querySelector('#budgetNavItem');
-
 // change the ID of the "Budget" navigation item
 budgetNavItem.id = 'selectedNavItem';
-
 // add the 'navItemSelected' class to the "Budget" navigation item
 budgetNavItem.classList.add('navItemSelected');
-
 // select the "Budget" section
 let budgetSection = document.querySelector('.booking.budget');
-
 // show the "Budget" section
 budgetSection.style.display = 'flex';
 
@@ -28,9 +25,7 @@ document.querySelectorAll('.calendar td').forEach(function (cell) {
           cell.classList.remove('date-selected-start', 'date-selected-end');
         });
     }
-
     clickCount++;
-
     if (clickCount === 1) {
       this.classList.add('date-selected-start'); // add 'mask-start' class to first clicked td
     } else if (clickCount === 2) {
@@ -39,48 +34,6 @@ document.querySelectorAll('.calendar td').forEach(function (cell) {
     }
   });
 });
-
-// function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
-//   let clickCount = 0;
-//   let arrivalInput = document.getElementById(arrivalId);
-//   let departureInput = document.getElementById(departureId);
-//   let selectedBoxes = [];
-
-//   document.querySelectorAll(dayBoxClass).forEach(function (box) {
-//     let parentTd = box.parentElement;
-
-//     parentTd.addEventListener('click', function () {
-//       let selectedDay = box.textContent;
-//       let selectedDate = '2024-01-' + selectedDay.padStart(2, '0');
-
-//       if (clickCount === 0) {
-//         arrivalInput.value = selectedDate;
-//         selectedBoxes.push(box);
-//       } else if (clickCount === 1) {
-//         departureInput.value = selectedDate;
-//         selectedBoxes.push(box);
-
-//         let startIndex = Array.from(
-//           document.querySelectorAll(dayBoxClass),
-//         ).indexOf(selectedBoxes[0]);
-//         let endIndex = Array.from(
-//           document.querySelectorAll(dayBoxClass),
-//         ).indexOf(selectedBoxes[1]);
-
-//         document.querySelectorAll(dayBoxClass).forEach((box, index) => {
-//           if (index >= startIndex && index <= endIndex) {
-//             box.parentElement.classList.add('date-selected');
-//           }
-//         });
-
-//         clickCount = -1;
-//         selectedBoxes = [];
-//       }
-
-//       clickCount++;
-//     });
-//   });
-// }
 
 function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
   let clickCount = 0;
@@ -96,11 +49,10 @@ function handleCalendarClick(arrivalId, departureId, dayBoxClass) {
       let selectedDate = '2024-01-' + selectedDay.padStart(2, '0');
 
       if (clickCount === 0) {
-        // Remove the .date-selected class from all elements
+        // remove the .date-selected class from all elements
         document.querySelectorAll('.date-selected').forEach((element) => {
           element.classList.remove('date-selected');
         });
-
         arrivalInput.value = selectedDate;
         selectedBoxes.push(parentTd);
       } else if (clickCount === 1) {
