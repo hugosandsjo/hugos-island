@@ -1,11 +1,12 @@
 
-# Harvest Haven
+# Terra Verde
 
 Some text about your lovely island
 
-# Florida project
+# Harvest Haven
 
 At Harvest Haven, our story unfolds through locally produced wines and culinary delights meticulously crafted from the island's bounty. We blend a passion for exceptional cuisine with a reverence for Terra Verde's stunning landscapes.
+
 <img src="https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif" width="700" height="350" />
 
 # Instructions
