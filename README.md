@@ -1,11 +1,20 @@
 
+<<<<<<< HEAD
 # Harvest Haven
+=======
+# Terra Verde
+>>>>>>> refs/remotes/origin/master
 
 At Harvest Haven, our story unfolds through locally produced wines and culinary delights meticulously crafted from the island's bounty. We blend a passion for exceptional cuisine with a reverence for Terra Verde's stunning landscapes.
 
+<<<<<<< HEAD
 # Harvest haven
+=======
+# Harvest Haven
 
-Why not add some info about the hotel of your dreams?
+At Harvest Haven, our story unfolds through locally produced wines and culinary delights meticulously crafted from the island's bounty. We blend a passion for exceptional cuisine with a reverence for Terra Verde's stunning landscapes.
+>>>>>>> refs/remotes/origin/master
+
 <img src="https://media.giphy.com/media/l0IsHpdbT4EX8wOgU/giphy.gif" width="700" height="350" />
 
 # Instructions
