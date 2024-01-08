@@ -345,7 +345,8 @@ tbody {
 
 .day:hover,
 .calendar tbody tr td.today:hover {
-  background-color: rgb(166, 221, 154) !important;
+  /* background-color: rgb(166, 221, 154) !important; */
+  background-color: rgb(109, 167, 234) !important;
   cursor: pointer;
 }
 
