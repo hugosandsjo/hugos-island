@@ -57,6 +57,9 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      $stayLength = $days;
 
      // use an associative array to map feature IDs to their costs
+     // 1 = Cashews
+     // 2 = Wine
+     //3 = Dinner
      $featurePrices = [
           1 => 2,
           2 => 3,
