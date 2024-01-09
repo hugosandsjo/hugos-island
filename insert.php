@@ -92,7 +92,7 @@ if (!isset($errors)) {
     $totalCost = $lastBooking['total_cost'];
 
     // include the feature names in the message
-    $message = "Congratulations $firstname $lastname! You have booked a $roomType room at Harvest Haven from $arrival to $departure including the following features: <br> $featuresString <br> Your grand total is: $totalCost";
+    $message = "Congratulations $firstname $lastname! You have booked a $roomType room at Harvest Haven from $arrival to $departure. Including features: <br> $featuresString <br> Your grand total: $totalCost";
 
     // create object from queries
     $response = [

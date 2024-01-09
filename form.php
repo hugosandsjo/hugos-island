@@ -96,8 +96,8 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      if ($arrival === '' || $departure === '') {
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
-     //      validateField($transferCode, 'The transfercode is missing');
-     // if date is not available
+     validateField($transferCode, 'The transfercode is missing');
+     // check if date is not available
      if (!isDateAvailable($arrival, $departure, $roomId)) {
           $errors[] = "The selected dates are already booked. Please choose a different date.";
      }
