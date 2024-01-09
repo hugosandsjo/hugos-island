@@ -1,12 +1,5 @@
 <?php
 
-// declare(strict_types=1);
-declare(strict_types=1);
-
-// require autoload app
-require 'app/autoload.php';
-
-require __DIR__ . '/functions.php';
 require __DIR__ . '/calendar.php';
 require __DIR__ . '/form.php';
 

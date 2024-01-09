@@ -32,9 +32,12 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      } else {
           $selectedFeatures = [];
      }
+
      // get room type
      $roomType = $_POST['roomType'];
+
      $baseCost = (int) 0; // initialize base cost for rooms
+
      // update roomtype id depending on roomtype to insert into correct calendar
      if ($roomType === 'budget') {
           $roomId = (int) 1;
@@ -59,7 +62,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      // use an associative array to map feature IDs to their costs
      // 1 = Cashews
      // 2 = Wine
-     //3 = Dinner
+     // 3 = Dinner
      $featurePrices = [
           1 => 2,
           2 => 3,
@@ -67,7 +70,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
      ];
 
      // initate feature cost
-     $featureCost = 0;
+     $featureCost = (int) 0;
 
      foreach ($selectedFeatures as $featureId) {
           if (isset($featurePrices[$featureId])) {
@@ -94,7 +97,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
           $errors[] = 'You havent chosen your dates.' . '<br>';
      }
      validateField($transferCode, 'The transfercode is missing');
-     // if date is not available
+     // check if date is not available
      if (!isDateAvailable($arrival, $departure, $roomId)) {
           $errors[] = "The selected dates are already booked. Please choose a different date.";
      }
