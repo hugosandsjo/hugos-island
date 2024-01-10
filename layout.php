@@ -125,7 +125,7 @@ require __DIR__ . '/form.php';
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label>
                 </div>
-                <br><button type="submit">Book</button>
+                <br><button type="submit">Proceed</button>
 
                 <?php if (isset($errors)) {
                     foreach ($errors as $error) {
@@ -165,7 +165,7 @@ require __DIR__ . '/form.php';
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label><br>
                 </div>
-                <br><button type="submit">Book</button>
+                <br><button type="submit">Proceed</button>
 
                 <?php if (isset($errors)) {
                     foreach ($errors as $error) {
@@ -205,7 +205,7 @@ require __DIR__ . '/form.php';
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label><br>
                 </div>
-                <br> <button class="submitButton" type="submit">Book</button>
+                <br> <button class="submitButton" type="submit">Proceed</button>
 
                 <?php if (isset($errors)) {
                     foreach ($errors as $error) {
