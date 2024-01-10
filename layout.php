@@ -113,7 +113,7 @@ require __DIR__ . '/form.php';
                 <input type="text" name="email" placeholder="Email" class="emailInput">
                 <input type="text" id="arrivalBudget" name="arrival" placeholder="Arrival">
                 <input type="text" id="departureBudget" name="departure" placeholder="Departure">
-                <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br>
+                <!-- <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br> -->
                 <select id="room" name="roomType">
                     <option value="budget">Budget</option>
                 </select>
@@ -230,16 +230,6 @@ require __DIR__ . '/form.php';
             <div class="colorBox blueBox"></div>
             <p>Your choice</p>
         </div>
-    </section>
-
-    <section class="succesfullBooking">
-        <?php
-        if (isset($message)) { ?><p>
-                <?php echo $message; ?></p>
-            <form class="showJSON" action="displayjson.php" method="post" target="_blank">
-                <input class="JSONbutton" type="submit" value="Show JSON">
-            </form>
-        <?php } ?>
     </section>
 
 </main>
