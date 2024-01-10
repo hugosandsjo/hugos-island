@@ -47,6 +47,12 @@ h4 {
   margin: 0;
 }
 
+h5 {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 1rem 0rem;
+}
+
 header {
   display: flex;
   width: 100vw;
@@ -306,6 +312,53 @@ footer {
   font-size: 48px;
   max-width: 380px;
   line-height: 1.2;
+}
+
+.lastStepSection {
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 9rem; */
+  height: 70vh;
+}
+
+.lastStepSection h2 {
+  margin: 0 0 2rem 0;
+}
+
+.lastStep {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.stepDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.stepDiv > h3 {
+  margin: 1rem 0rem;
+}
+
+.lastStep form {
+  height: 60px;
+  padding: 0;
+  /* height: auto; */
+  margin-top: 1rem;
+}
+
+.lastStep form input {
+  width: auto;
+  height: 100%;
+}
+
+.lastStep form button {
+  font-size: 22px;
+  padding: 0.9rem 2rem;
 }
 
 /* calendar styles */

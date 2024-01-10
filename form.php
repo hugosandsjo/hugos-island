@@ -59,6 +59,23 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     $days = $interval->format('%a') + 1; // the +1 since it only calculates the days inbetween
     $stayLength = $days;
 
+
+    // check if form fields are empty and display error message if thats the case
+    validateField($email, 'The email field is empty');
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'The email address is not valid.' . '<br>';
+    }
+    validateField($firstname, 'The name field is empty');
+    validateField($lastname, 'The lastname field is empty');
+    if ($arrival === '' || $departure === '') {
+        $errors[] = 'You havent chosen your dates.' . '<br>';
+    }
+    //  validateField($transferCode, 'The transfercode is missing');
+    // check if date is not available
+    if (!isDateAvailable($arrival, $departure, $roomId)) {
+        $errors[] = "The selected dates are already booked. Please choose a different date.";
+    }
+
     // use an associative array to map feature IDs to their costs
     // 1 = Cashews
     // 2 = Wine
@@ -87,25 +104,20 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     }
 
     $_SESSION['totalCost'] = $totalCost;
+    $_SESSION['firstname'] = $firstname;
+    $_SESSION['lastname'] = $lastname;
+    $_SESSION['email'] = $email;
+    $_SESSION['arrival'] = $arrival;
+    $_SESSION['departure'] = $departure;
+    $_SESSION['roomType'] = $roomType;
+    $_SESSION['selectedFeatures'] = $selectedFeatures;
+
+
+    $_SESSION['response'] = $response;
 
     header('Location: booking.php');
     exit;
 
-    // check if form fields are empty and display error message if thats the case
-    validateField($email, 'The email field is empty');
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'The email address is not valid.' . '<br>';
-    }
-    validateField($firstname, 'The name field is empty');
-    validateField($lastname, 'The lastname field is empty');
-    if ($arrival === '' || $departure === '') {
-        $errors[] = 'You havent chosen your dates.' . '<br>';
-    }
-    //  validateField($transferCode, 'The transfercode is missing');
-    // check if date is not available
-    if (!isDateAvailable($arrival, $departure, $roomId)) {
-        $errors[] = "The selected dates are already booked. Please choose a different date.";
-    }
 
     // check valid transfercode and deposit if valid
     $validTransferCode = [
