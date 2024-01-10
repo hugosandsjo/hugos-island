@@ -1,27 +1,37 @@
 <?php
 
+
 // if no errors, insert into database
 if (!isset($errors)) {
+
+
+    if (isset($lastBooking['total_cost'])) {
+        $totalCost = $lastBooking['total_cost'];
+    }
+
+
+    $selectedFeatures = $_SESSION['selectedFeatures'] ?? [];
+
 
     // connect the database
     $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
 
     // insert into guests
     $statement = $database->prepare('INSERT INTO guests (firstname, lastname, email) VALUES (:firstname, :lastname, :email)');
-    $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
-    $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-    $statement->bindParam(':email', $email, PDO::PARAM_STR);
+    $statement->bindParam(':firstname', $_SESSION['firstname'], PDO::PARAM_STR);
+    $statement->bindParam(':lastname',  $_SESSION['lastname'], PDO::PARAM_STR);
+    $statement->bindParam(':email', $_SESSION['email'], PDO::PARAM_STR);
     $statement->execute();
     // get the last inserted guest_id to use in the booking table
     $lastGuestId = $database->lastInsertId();
     // insert into bookings
     $statement = $database->prepare('INSERT INTO bookings (arrival, departure, days, guest_id, hotel_id, room_id) VALUES (:arrival, :departure, :days, :guest_id, :hotel_id, :room_id)');
-    $statement->bindParam(':arrival', $arrival, PDO::PARAM_STR);
-    $statement->bindParam(':departure', $departure, PDO::PARAM_STR);
-    $statement->bindParam('days', $stayLength, PDO::PARAM_INT);
+    $statement->bindParam(':arrival', $_SESSION['arrival'], PDO::PARAM_STR);
+    $statement->bindParam(':departure', $_SESSION['departure'], PDO::PARAM_STR);
+    $statement->bindParam('days',  $_SESSION['stayLength'], PDO::PARAM_INT);
     $statement->bindParam(':guest_id', $lastGuestId, PDO::PARAM_INT);
-    $statement->bindParam(':hotel_id', $hotelId, PDO::PARAM_INT);
-    $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+    $statement->bindParam(':hotel_id', $_SESSION['hotelId'], PDO::PARAM_INT);
+    $statement->bindParam(':room_id', $_SESSION['roomId'], PDO::PARAM_INT);
     $statement->execute();
 
     //insert last guest id and features into booking_features junction table
@@ -40,6 +50,10 @@ if (!isset($errors)) {
         2 => 'Vodka',
         3 => 'Dinner',
     ];
+
+    if (!isset($selectedFeatures)) {
+        $selectedFeatures = [];
+    }
 
     // replace the IDs in $selectedFeatures with their corresponding names
     $selectedFeatureNames = array_map(function ($featureId) use ($featureNames) {
@@ -64,7 +78,7 @@ if (!isset($errors)) {
     $statement->execute();
     $lastBooking = $statement->fetch(PDO::FETCH_ASSOC);
 
-    // Fetch the features for the last booking in its own query
+    // fetch the features for the last booking in its own query
     $statement = $database->prepare('SELECT features.id, features.name, features.cost FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id');
     $statement->bindParam(':booking_id', $lastBooking['id']);
     $statement->execute();
@@ -77,6 +91,7 @@ if (!isset($errors)) {
 
     // create an associative array where the keys are the feature IDs and the values are the feature names
     $featureNames = [];
+
     foreach ($features as $feature) {
         $featureNames[] = [
             'name' => $feature['name'],
@@ -84,26 +99,26 @@ if (!isset($errors)) {
         ];
     }
     // make the 30% discount also get applied to the json-file
-    if ($stayLength >= 3) {
+    if ($_SESSION['stayLength'] >= 3) {
         $lastBooking['total_cost'] = round($lastBooking['total_cost'] * 0.7);
     }
 
     // define the total cost for the message
-    $totalCost = $lastBooking['total_cost'];
+    $totalCost = $_SESSION['totalCost'];
 
     // include the feature names in the message
-    $message = "Congratulations $firstname $lastname! You have booked a $roomType room at Harvest Haven from $arrival to $departure. Including features: <br> $featuresString <br> Your grand total: $totalCost";
+    $message = "Congratulations " . $_SESSION['firstname'] . " " . $_SESSION['lastname'] . " You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven!";
 
     // create object from queries
     $response = [
-        'island' => $lastBooking['island'],
-        'hotel' => $lastBooking['hotel'],
-        'arrival_date' => $lastBooking['arrival'],
-        'departure_date' => $lastBooking['departure'],
-        'total_cost' => $lastBooking['total_cost'],
-        'stars' => $lastBooking['stars'],
+        'island' => $_SESSION['island'],
+        'hotel' => $_SESSION['hotel'],
+        'arrival_date' => $_SESSION['arrival'],
+        'departure_date' => $_SESSION['departure'],
+        'total_cost' => $_SESSION['totalCost'],
+        'stars' => $_SESSION['stars'],
         // Select from features with its own query
-        'features' => $featureNames ?: [],
+        'features' => $featureNames ?? [],
         'additional_info' => [
             'greeting' => "Thank you for choosing Harvest Haven",
             'imageUrl' => "No image at the moment"

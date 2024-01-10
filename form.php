@@ -3,18 +3,18 @@
 // declare(strict_types=1);
 declare(strict_types=1);
 
-// start guzzle
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+// // start guzzle
+// use GuzzleHttp\Client;
+// use GuzzleHttp\Exception\ClientException;
 
-// new client with base uri
-$client = new Client([
-    'base_uri' => 'https://www.yrgopelag.se/centralbank/',
-    'timeout' => 2.0,
-]);
+// // new client with base uri
+// $client = new Client([
+//     'base_uri' => 'https://www.yrgopelag.se/centralbank/',
+//     'timeout' => 2.0,
+// ]);
 
 // post logic
-if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'], $_POST['roomType'], $_POST['transferCode'])) {
+if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'], $_POST['roomType'],)) {
 
     // trimming and sanitizing
     $firstname = ucfirst(strtolower(htmlspecialchars(str_replace(' ', '', trim($_POST['firstname'])))));
@@ -23,7 +23,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     $arrival = $_POST['arrival'];
     $departure = $_POST['departure'];
     $hotelId = (int) 1; // important hotelId (is always the same since there is only one hotel)
-    $transferCode = $_POST['transferCode'];
+
     if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
         $selectedFeatures = $_POST['features']; // this will be an array
         foreach ($selectedFeatures as $featureId) {
@@ -70,7 +70,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     if ($arrival === '' || $departure === '') {
         $errors[] = 'You havent chosen your dates.' . '<br>';
     }
-    //  validateField($transferCode, 'The transfercode is missing');
+
     // check if date is not available
     if (!isDateAvailable($arrival, $departure, $roomId)) {
         $errors[] = "The selected dates are already booked. Please choose a different date.";
@@ -103,57 +103,31 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $totalCost = round($totalCost * 0.7);
     }
 
-    $_SESSION['totalCost'] = $totalCost;
-    $_SESSION['firstname'] = $firstname;
-    $_SESSION['lastname'] = $lastname;
-    $_SESSION['email'] = $email;
-    $_SESSION['arrival'] = $arrival;
-    $_SESSION['departure'] = $departure;
-    $_SESSION['roomType'] = $roomType;
-    $_SESSION['selectedFeatures'] = $selectedFeatures;
+    // check if the errors array is empty
+    if (empty($errors)) {
+        $_SESSION['totalCost'] = $totalCost;
+        $_SESSION['firstname'] = $firstname;
+        $_SESSION['lastname'] = $lastname;
+        $_SESSION['email'] = $email;
+        $_SESSION['arrival'] = $arrival;
+        $_SESSION['departure'] = $departure;
+        $_SESSION['stayLength'] = $stayLength;
+        $_SESSION['roomType'] = $roomType;
+        $_SESSION['selectedFeatures'] = $selectedFeatures;
+        $_SESSION['response'] = $response;
+        $_SESSION['client'] = $client;
+        $_SESSION['errors'] = null;
+        $_SESSION['island'] = 'Terra Verde';
+        $_SESSION['hotel'] = 'Harvest Haven';
+        $_SESSION['stars'] = '4';
+        $_SESSION['hotelId'] = $hotelId;
+        $_SESSION['roomId'] = $roomId;
 
 
-    $_SESSION['response'] = $response;
-
-    header('Location: booking.php');
-    exit;
-
-
-    // check valid transfercode and deposit if valid
-    $validTransferCode = [
-        'form_params' => [
-            'transferCode' => $transferCode,
-            'totalcost' => $totalCost
-        ]
-    ];
-
-    try {
-        $response = $client->request('POST', 'transferCode', $validTransferCode);
-        $body = json_decode($response->getBody()->getContents(), true);
-
-        if (isset($body['error']) && $body['error'] == "Not a valid GUID") {
-            // the transfer code was not accepted, display an error message
-            $errors[] = 'Not a valid transfer code.' . '<br>';
-        } else {
-            // the transfer code was accepted, deposit the totalCost and proceed with the booking
-            try {
-                $deposit = [
-                    'form_params' => [
-                        'user' => 'hugo',
-                        'transferCode' => $transferCode
-                    ]
-                ];
-                $response = $client->request('POST', 'deposit', $deposit);
-                $statusCode = $response->getStatusCode();
-                $body = $response->getBody()->getContents();
-            } catch (ClientException $e) {
-                echo $e->getMessage();
-            }
-        }
-    } catch (ClientException $e) {
-        $errors[] = 'Error: ' . $e->getMessage() . '<br>';
+        header('Location: booking.php');
+        exit;
+    } else {
+        // empty to display the errors
+        $_SESSION['errors'] = $errors;
     }
-
-    // if succesfull insert into database in this file
-    require __DIR__ . '/insert.php';
 }
