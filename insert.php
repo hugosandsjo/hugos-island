@@ -9,9 +9,7 @@ if (!isset($errors)) {
         $totalCost = $lastBooking['total_cost'];
     }
 
-
     $selectedFeatures = $_SESSION['selectedFeatures'] ?? [];
-
 
     // connect the database
     $database = new PDO('sqlite:' . __DIR__ . '/app/database/database.db');
@@ -35,8 +33,14 @@ if (!isset($errors)) {
     $statement->execute();
 
     //insert last guest id and features into booking_features junction table
-    if ($selectedFeatures) {
-        foreach ($selectedFeatures as $featureId) {
+    if ($_SESSION['selectedFeatures']) {
+        $_SESSION['selectedFeatures'] = [
+            'cashew' => 1,
+            'wine' => 2,
+            'dinner' => 3,
+        ];
+
+        foreach ($_SESSION['selectedFeatures'] as $featureId) {
             $statement = $database->prepare('INSERT INTO booking_features (booking_id, feature_id) VALUES (:booking_id, :feature_id)');
             $statement->bindParam(':booking_id', $lastGuestId);
             $statement->bindParam(':feature_id', $featureId);
@@ -46,16 +50,16 @@ if (!isset($errors)) {
 
     // define the mapping from feature IDs to names
     $featureNames = [
-        1 => 'Cashews',
-        2 => 'Vodka',
-        3 => 'Dinner',
+        'cashew' => 1,
+        'wine' => 2,
+        'dinner' => 3,
     ];
 
     if (!isset($selectedFeatures)) {
         $selectedFeatures = [];
     }
 
-    // replace the IDs in $selectedFeatures with their corresponding names
+    // replace the IDs in $selectedFeatures with their corresponding name to display in the JSON
     $selectedFeatureNames = array_map(function ($featureId) use ($featureNames) {
         return $featureNames[$featureId];
     }, $selectedFeatures);
@@ -107,7 +111,7 @@ if (!isset($errors)) {
     $totalCost = $_SESSION['totalCost'];
 
     // include the feature names in the message
-    $message = "Congratulations " . $_SESSION['firstname'] . " " . $_SESSION['lastname'] . " You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven!";
+    $message = "<strong>Congratulations " . $_SESSION['firstname'] . "</strong> " . $_SESSION['lastname'] . "! You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven.";
 
     // create object from queries
     $response = [

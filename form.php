@@ -3,16 +3,6 @@
 // declare(strict_types=1);
 declare(strict_types=1);
 
-// // start guzzle
-// use GuzzleHttp\Client;
-// use GuzzleHttp\Exception\ClientException;
-
-// // new client with base uri
-// $client = new Client([
-//     'base_uri' => 'https://www.yrgopelag.se/centralbank/',
-//     'timeout' => 2.0,
-// ]);
-
 // post logic
 if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arrival'], $_POST['departure'], $_POST['roomType'],)) {
 
@@ -26,7 +16,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
 
     if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
         $selectedFeatures = $_POST['features']; // this will be an array
-        foreach ($selectedFeatures as $featureId) {
+        foreach ($selectedFeatures as $featureName) {
             // process each selected feature
         }
     } else {
@@ -41,13 +31,13 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     // update roomtype id depending on roomtype to insert into correct calendar
     if ($roomType === 'budget') {
         $roomId = (int) 1;
-        $roomCost = (int) $featureCosts[0]['cost'];
+        $roomCost = (int) $roomPrices['0']['price'];
     } elseif ($roomType === 'standard') {
         $roomId = (int) 2;
-        $roomCost = (int) $featureCosts[1]['cost'];
+        $roomCost = (int) $roomPrices['1']['price'];
     } elseif ($roomType === 'luxury') {
         $roomId = (int) 3;
-        $roomCost = (int) $featureCosts[2]['cost'];
+        $roomCost = (int) $roomPrices['2']['price'];
     } else {
         $errors[] = 'Invalid room type selected.' . '<br>';
     }
@@ -76,24 +66,27 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $errors[] = "The selected dates are already booked. Please choose a different date.";
     }
 
-    // use an associative array to map feature IDs to their costs
-    // 1 = Cashews
-    // 2 = Wine
-    // 3 = Dinner
+    // use an associative array to map feature names to their costs
     $featurePrices = [
-        1 => $featureCosts['0']['cost'],
-        2 => $featureCosts['1']['cost'],
-        3 => $featureCosts['2']['cost'],
+        'cashew' => $featureCosts['0']['cost'],
+        'wine' => $featureCosts['1']['cost'],
+        'dinner' => $featureCosts['2']['cost'],
     ];
 
     // initate feature cost
     $featuresTotal = (int) 0;
 
-    foreach ($selectedFeatures as $featureId) {
-        if (isset($featurePrices[$featureId])) {
-            $featuresTotal += $featurePrices[$featureId];
+    if (isset($_POST['features'])) {
+        $selectedFeatures = $_POST['features'];
+        foreach ($selectedFeatures as $featureName) {
+            if (isset($featurePrices[$featureName])) {
+                $featuresTotal += $featurePrices[$featureName];
+            }
         }
+    } else {
+        $selectedFeatures = [];
     }
+
 
     // calculate totalcost = the basecost of the room multiplied with lenght of stay + all the feature costs
     $totalCost = $roomCost * $stayLength + $featuresTotal;

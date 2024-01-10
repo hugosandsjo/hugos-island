@@ -14,10 +14,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 // new client with base uri
 
-
-
-
 session_start();
+
+
 if (isset($_POST['transferCode'])) {
 
     $client = new Client([
@@ -31,7 +30,6 @@ if (isset($_POST['transferCode'])) {
     $totalCost = $_SESSION['totalCost'];
 
     validateField($transferCode, 'The transfercode is missing');
-
 
     if (!isset($errors)) {
 
@@ -77,14 +75,11 @@ if (isset($_POST['transferCode'])) {
         // if not succesfull display error message
         $errors[] = 'Not a valid transfer code.' . '<br>';
     }
-    // if (!empty($errors)) {
-    //     foreach ($errors as $error) {
-    //         echo $error;
-    //     }
-    // }
 }
 
 ?>
+
+
 <section class="lastStepSection">
 
     <div class="lastStep">

@@ -118,11 +118,11 @@ require __DIR__ . '/form.php';
                     <option value="budget">Budget</option>
                 </select>
                 <div class="features">
-                    <input class="checkbox" type="checkbox" id="cashews" name="features[]" value="1"> <!-- value 1 = peanuts feature -->
-                    <label class="featureLabel" for="cashews">Cashews <?= $featureCosts['0']['cost'] ?> kr</label>
-                    <input class="checkbox" type="checkbox" id="wine" name="features[]" value="2"> <!-- value 2 = wine feature -->
+                    <input class="checkbox" type="checkbox" id="cashew" name="features[]" value="cashew"> <!-- value 1 = peanuts feature -->
+                    <label class="featureLabel" for="cashew">Cashew <?= $featureCosts['0']['cost'] ?> kr</label>
+                    <input class="checkbox" type="checkbox" id="wine" name="features[]" value="wine"> <!-- value 2 = wine feature -->
                     <label class="featureLabel" for="wine">Wine <?= $featureCosts['1']['cost'] ?> kr</label>
-                    <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
+                    <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label>
                 </div>
                 <br><button type="submit">Proceed</button>
@@ -153,16 +153,16 @@ require __DIR__ . '/form.php';
                 <input type="text" name="email" placeholder="Email" class="emailInput">
                 <input type="text" id="arrivalStandard" name="arrival" placeholder="Arrival">
                 <input type="text" id="departureStandard" name="departure" placeholder="Departure">
-                <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br>
+                <br>
                 <select id="room" name="roomType">
                     <option value="standard">Standard</option>
                 </select>
                 <div class="features">
-                    <input class="checkbox" type="checkbox" id="cashews" name="features[]" value="1"> <!-- value 1 = peanuts feature -->
-                    <label class="featureLabel" for="cashews">Cashews <?= $featureCosts['0']['cost'] ?> kr</label><br>
-                    <input class="checkbox" type="checkbox" id="wine" name="features[]" value="2"> <!-- value 2 = vodka feature -->
+                    <input class="checkbox" type="checkbox" id="cashew" name="features[]" value="cashew"> <!-- value 1 = peanuts feature -->
+                    <label class="featureLabel" for="cashew">Cashew <?= $featureCosts['0']['cost'] ?> kr</label><br>
+                    <input class="checkbox" type="checkbox" id="wine" name="features[]" value="wine"> <!-- value 2 = vodka feature -->
                     <label class="featureLabel" for="wine">Wine <?= $featureCosts['1']['cost'] ?> kr</label><br>
-                    <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
+                    <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label><br>
                 </div>
                 <br><button type="submit">Proceed</button>
@@ -193,16 +193,16 @@ require __DIR__ . '/form.php';
                 <input type="text" name="email" placeholder="Email" class="emailInput">
                 <input type="text" id="arrivalLuxury" name="arrival" placeholder="Arrival">
                 <input type="text" id="departureLuxury" name="departure" placeholder="Departure">
-                <input type="text" id="transferCode" name="transferCode" placeholder="Transfer code" class="transferCode"><br>
+                <br>
                 <select id="room" name="roomType">
                     <option value="luxury">Luxury</option>
                 </select>
                 <div class="features">
-                    <input class="checkbox" type="checkbox" id="cashews" name="features[]" value="1"> <!-- value 1 = peanuts feature -->
-                    <label class="featureLabel" for="cashews">Cashews <?= $featureCosts['0']['cost'] ?> kr</label><br>
-                    <input class="checkbox" type="checkbox" id="wine" name="features[]" value="2"> <!-- value 2 = vodka feature -->
+                    <input class="checkbox" type="checkbox" id="cashew" name="features[]" value="cashew"> <!-- value 1 = peanuts feature -->
+                    <label class="featureLabel" for="cashew">Cashew <?= $featureCosts['0']['cost'] ?> kr</label><br>
+                    <input class="checkbox" type="checkbox" id="wine" name="features[]" value="wine"> <!-- value 2 = vodka feature -->
                     <label class="featureLabel" for="wine">Wine <?= $featureCosts['1']['cost'] ?> kr</label><br>
-                    <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="3"> <!-- value 3 = dinner feature -->
+                    <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label><br>
                 </div>
                 <br> <button class="submitButton" type="submit">Proceed</button>
