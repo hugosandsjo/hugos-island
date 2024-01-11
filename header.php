@@ -7,10 +7,7 @@
     <title>Hugos-island</title>
     <link rel="stylesheet" href="assets/style/style.css">
     <script src="assets/scripts/script.js" defer></script>
-
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-
-
 
 </head>
 
