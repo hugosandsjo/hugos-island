@@ -125,14 +125,17 @@ require __DIR__ . '/form.php';
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label>
                 </div>
-                <br><button type="submit">Proceed</button>
+                <br><button type="submit">Proceed</button><br>
+                <div class="errorMessageContainer">
+                    <?php if (isset($errors)) {
 
-                <?php if (isset($errors)) {
-                    foreach ($errors as $error) {
-                        echo '<br>' . $error;
-                    }
-                } ?>
-
+                        foreach ($errors as $error) { ?>
+                            <p class="errorMessage">
+                                <?php echo $error; ?>
+                            </p>
+                    <?php  }
+                    } ?>
+                </div>
             </form>
         </div>
     </section>

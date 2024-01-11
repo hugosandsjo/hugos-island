@@ -1,6 +1,5 @@
 <?php
 
-
 // if no errors, insert into database
 if (!isset($errors)) {
 
@@ -44,7 +43,6 @@ if (!isset($errors)) {
 
 
     // insert last guest id and features into booking_features junction table
-
     if (!isset($_SESSION['selectedFeatures'])) {
         $selectedFeatures = [];
     } else {
@@ -84,8 +82,8 @@ if (!isset($errors)) {
         ];
     }
 
-    // define the total cost for the message
-    $totalCost = $_SESSION['totalCost'];
+    // // define the total cost for the message
+    // $totalCost = $_SESSION['totalCost'];
 
     // include the feature names in the message
     $message = "<strong>Congratulations " . $_SESSION['firstname'] . " " . $_SESSION['lastname'] . "!</strong> You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven.";

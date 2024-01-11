@@ -158,6 +158,7 @@ button {
   font-size: 28px;
   font-family: 'EB Garamond', serif;
   padding: 1rem 2rem;
+  margin-bottom: 1rem;
 }
 
 button:hover {
@@ -317,7 +318,6 @@ footer {
 .lastStepSection {
   display: flex;
   justify-content: center;
-  /* margin-bottom: 9rem; */
   height: 70vh;
 }
 
@@ -330,6 +330,7 @@ footer {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  margin-bottom: 3rem;
 }
 
 .stepDiv {
@@ -344,21 +345,62 @@ footer {
   margin: 1rem 0rem;
 }
 
-.lastStep form {
+.lastStepForm {
   height: 60px;
   padding: 0;
-  /* height: auto; */
   margin-top: 1rem;
 }
 
-.lastStep form input {
+.lastStepForm input,
+.adminForm input {
   width: auto;
   height: 100%;
 }
 
-.lastStep form button {
+.lastStepForm button,
+.adminForm button {
   font-size: 22px;
   padding: 0.9rem 2rem;
+}
+
+.adminSection {
+  display: flex;
+  height: 70vh;
+}
+
+.adminForm {
+  height: 60px;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.adminDiv {
+  padding: 2rem;
+  width: 15rem;
+}
+
+.backButton {
+  background-color: #f7f5f1;
+  border: 1px solid black;
+  font-size: 20px;
+}
+
+.backButton:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.errorMessageContainer {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.errorMessage {
+  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 /* calendar styles */

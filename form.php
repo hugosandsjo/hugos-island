@@ -63,7 +63,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
 
     // check if date is not available
     if (!isDateAvailable($arrival, $departure, $roomId)) {
-        $errors[] = "The selected dates are already booked. Please choose a different date.";
+        $errors[] = "The selected dates are already booked. Please choose a different date." . '<br>';
     }
 
     // use an associative array to map feature names to their costs
