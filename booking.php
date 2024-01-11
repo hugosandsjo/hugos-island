@@ -104,10 +104,17 @@ if (isset($_POST['transferCode'])) {
 
         <div class="stepDiv">
             <h5>Features:</h5>
-
-            <h5> <?php foreach ($_SESSION['selectedFeatures'] as $feature) {
+            <h5> <?php
+                    // if (isset($featureNames)) {
+                    //     foreach ($featureNames as $featureName) {
+                    //         echo $featureName['name'] . ', ';
+                    //     }
+                    // } else {
+                    foreach ($_SESSION['selectedFeatures'] as $feature) {
                         echo $feature . ', ';
                     }
+                    // }
+
                     ?></h5>
         </div>
 

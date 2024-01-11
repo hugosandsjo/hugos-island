@@ -76,17 +76,20 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     // initate feature cost
     $featuresTotal = (int) 0;
 
+    // create arrays for features
     if (isset($_POST['features'])) {
         $selectedFeatures = $_POST['features'];
+        $selectedFeatureDetails = [];
         foreach ($selectedFeatures as $featureName) {
             if (isset($featurePrices[$featureName])) {
                 $featuresTotal += $featurePrices[$featureName];
+                // Store both the feature ID and the feature name
+                $selectedFeatureDetails[] = ['id' => $featureNames[$featureName], 'name' => $featureName];
             }
         }
     } else {
         $selectedFeatures = [];
     }
-
 
     // calculate totalcost = the basecost of the room multiplied with lenght of stay + all the feature costs
     $totalCost = $roomCost * $stayLength + $featuresTotal;
