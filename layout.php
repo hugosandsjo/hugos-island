@@ -1,10 +1,7 @@
 <?php
-
-require __DIR__ . '/calendar.php';
-require __DIR__ . '/form.php';
-
+// require __DIR__ . '/form.php';
+// require __DIR__ . '/calendar.php';
 ?>
-
 <nav>
     <div class="budget" id="budgetNavItem">Budget</div>
     <div class="standard" id="standardNavItem">Standard</div>

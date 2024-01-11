@@ -1,5 +1,4 @@
 <?php
-
 // declare(strict_types=1);
 declare(strict_types=1);
 
@@ -14,14 +13,14 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     $departure = $_POST['departure'];
     $hotelId = (int) 1; // important hotelId (is always the same since there is only one hotel)
 
-    if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
-        $selectedFeatures = $_POST['features']; // this will be an array
-        foreach ($selectedFeatures as $featureName) {
-            // process each selected feature
-        }
-    } else {
-        $selectedFeatures = [];
-    }
+    // if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
+    //     $selectedFeatures = $_POST['features']; // this will be an array
+    //     foreach ($selectedFeatures as $featureName) {
+    //         // process each selected feature
+    //     }
+    // } else {
+    //     $selectedFeatures = [];
+    // }
 
     // get room type
     $roomType = $_POST['roomType'];
@@ -48,7 +47,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     $interval = $arrivalDate->diff($departureDate);
     $days = $interval->format('%a') + 1; // the +1 since it only calculates the days inbetween
     $stayLength = $days;
-
 
     // check if form fields are empty and display error message if thats the case
     validateField($email, 'The email field is empty');
@@ -80,11 +78,12 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     if (isset($_POST['features'])) {
         $selectedFeatures = $_POST['features'];
         $selectedFeatureDetails = [];
-        foreach ($selectedFeatures as $featureName) {
-            if (isset($featurePrices[$featureName])) {
-                $featuresTotal += $featurePrices[$featureName];
+
+        foreach ($selectedFeatures as $feature) {
+            if (isset($featurePrices[$feature])) {
+                $featuresTotal += $featurePrices[$feature];
                 // Store both the feature ID and the feature name
-                $selectedFeatureDetails[] = ['id' => $featureNames[$featureName], 'name' => $featureName];
+                // $selectedFeatureDetails[] = ['id' => $featureNames[$feature], 'name' => $feature];
             }
         }
     } else {
@@ -118,7 +117,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $_SESSION['stars'] = '4';
         $_SESSION['hotelId'] = $hotelId;
         $_SESSION['roomId'] = $roomId;
-
 
         header('Location: booking.php');
         exit;

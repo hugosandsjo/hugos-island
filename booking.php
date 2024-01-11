@@ -6,6 +6,7 @@ require __DIR__ . '/app/autoload.php';
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/header.php';
 require __DIR__ . '/functions.php';
+require __DIR__ . '/form.php';
 // require __DIR__ . '/adminlogin.php';
 // require __DIR__ . '/prices.php';
 
@@ -14,8 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 // new client with base uri
 
-session_start();
-
+// session_start();
 
 if (isset($_POST['transferCode'])) {
 
@@ -135,6 +135,5 @@ if (isset($_POST['transferCode'])) {
 </section>
 
 <?php
-
 
 require __DIR__ . '/footer.php';
