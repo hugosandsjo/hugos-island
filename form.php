@@ -1,5 +1,5 @@
 <?php
-// declare(strict_types=1);
+
 declare(strict_types=1);
 
 // post logic
@@ -12,19 +12,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     $arrival = $_POST['arrival'];
     $departure = $_POST['departure'];
     $hotelId = (int) 1; // important hotelId (is always the same since there is only one hotel)
-
-    // if (isset($_POST['features'])) {  // if any features are selected this will create an array of the chosen features
-    //     $selectedFeatures = $_POST['features']; // this will be an array
-    //     foreach ($selectedFeatures as $featureName) {
-    //         // process each selected feature
-    //     }
-    // } else {
-    //     $selectedFeatures = [];
-    // }
-
-    // get room type
-    $roomType = $_POST['roomType'];
-
+    $roomType = $_POST['roomType']; // get room type
     $roomCost = (int) 0; // initialize base cost for rooms
 
     // update roomtype id depending on roomtype to insert into correct calendar
@@ -82,8 +70,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         foreach ($selectedFeatures as $feature) {
             if (isset($featurePrices[$feature])) {
                 $featuresTotal += $featurePrices[$feature];
-                // Store both the feature ID and the feature name
-                // $selectedFeatureDetails[] = ['id' => $featureNames[$feature], 'name' => $feature];
             }
         }
     } else {
