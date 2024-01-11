@@ -95,8 +95,6 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $_SESSION['stayLength'] = $stayLength;
         $_SESSION['roomType'] = $roomType;
         $_SESSION['selectedFeatures'] = $selectedFeatures;
-        // $_SESSION['response'] = $response;
-        // $_SESSION['client'] = $client;
         $_SESSION['errors'] = null;
         $_SESSION['island'] = 'Terra Verde';
         $_SESSION['hotel'] = 'Harvest Haven';
