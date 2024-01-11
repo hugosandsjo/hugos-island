@@ -16,7 +16,9 @@ require __DIR__ . '/form.php';
         <p class="introduction">“At Harvest Haven, our story unfolds through locally produced wines and culinary delights meticulously crafted from the island's bounty. We blend a passion for exceptional cuisine with a reverence for Terra Verde's stunning landscapes.”</p>
     </header>
     <section class="hero">
-        <img src="assets/images/castle.png" class="apple">
+        <!-- <img src="assets/images/yrgopelagAnimation.json" class="apple"> -->
+        <dotlottie-player src="https://lottie.host/80eef97c-a17e-4600-9d7e-34f951941e3a/9UyaInlyav.json" background="transparent" speed="1" style="width: 800px; height: 800px;" loop autoplay></dotlottie-player>
+
     </section>
 
     <section class="hotelName">
