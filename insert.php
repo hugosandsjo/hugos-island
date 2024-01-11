@@ -82,9 +82,6 @@ if (!isset($errors)) {
         ];
     }
 
-    // // define the total cost for the message
-    // $totalCost = $_SESSION['totalCost'];
-
     // include the feature names in the message
     $message = "<strong>Congratulations " . $_SESSION['firstname'] . " " . $_SESSION['lastname'] . "!</strong> You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven.";
 

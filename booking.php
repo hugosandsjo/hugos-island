@@ -7,15 +7,10 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/header.php';
 require __DIR__ . '/functions.php';
 require __DIR__ . '/form.php';
-// require __DIR__ . '/adminlogin.php';
-// require __DIR__ . '/prices.php';
 
 // start guzzle
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-// new client with base uri
-
-// session_start();
 
 if (isset($_POST['transferCode'])) {
 
