@@ -79,6 +79,7 @@ if (isset($_POST['transferCode'])) {
 
 ?>
 
+<button class="backButton" onclick="window.location.href = 'index.php'">Back</button>
 
 <section class="lastStepSection">
 
@@ -104,14 +105,14 @@ if (isset($_POST['transferCode'])) {
 
         <div class="stepDiv">
             <h5>Features:</h5>
-
-            <h5> <?php foreach ($_SESSION['selectedFeatures'] as $feature) {
+            <h5> <?php
+                    foreach ($_SESSION['selectedFeatures'] as $feature) {
                         echo $feature . ', ';
                     }
                     ?></h5>
         </div>
 
-        <form action="booking.php" method="post">
+        <form action="booking.php" method="post" class="lastStepForm">
             <input type="text" name="transferCode" placeholder="Transfer code">
             <button type="submit">Book</button>
             <?php if (!empty($errors)) {

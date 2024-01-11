@@ -16,7 +16,9 @@ require __DIR__ . '/form.php';
         <p class="introduction">“At Harvest Haven, our story unfolds through locally produced wines and culinary delights meticulously crafted from the island's bounty. We blend a passion for exceptional cuisine with a reverence for Terra Verde's stunning landscapes.”</p>
     </header>
     <section class="hero">
-        <img src="assets/images/castle.png" class="apple">
+        <!-- <img src="assets/images/yrgopelagAnimation.json" class="apple"> -->
+        <dotlottie-player src="https://lottie.host/80eef97c-a17e-4600-9d7e-34f951941e3a/9UyaInlyav.json" background="transparent" speed="1" style="width: 800px; height: 800px;" loop autoplay></dotlottie-player>
+
     </section>
 
     <section class="hotelName">
@@ -125,14 +127,17 @@ require __DIR__ . '/form.php';
                     <input class="checkbox" type="checkbox" id="dinner" name="features[]" value="dinner"> <!-- value 3 = dinner feature -->
                     <label class="featureLabel" for="dinner">Dinner <?= $featureCosts['2']['cost'] ?> kr</label>
                 </div>
-                <br><button type="submit">Proceed</button>
+                <br><button type="submit">Proceed</button><br>
+                <div class="errorMessageContainer">
+                    <?php if (isset($errors)) {
 
-                <?php if (isset($errors)) {
-                    foreach ($errors as $error) {
-                        echo '<br>' . $error;
-                    }
-                } ?>
-
+                        foreach ($errors as $error) { ?>
+                            <p class="errorMessage">
+                                <?php echo $error; ?>
+                            </p>
+                    <?php  }
+                    } ?>
+                </div>
             </form>
         </div>
     </section>

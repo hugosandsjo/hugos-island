@@ -1,9 +1,7 @@
 <?php
 
-
 // if no errors, insert into database
 if (!isset($errors)) {
-
 
     if (isset($lastBooking['total_cost'])) {
         $totalCost = $lastBooking['total_cost'];
@@ -32,22 +30,6 @@ if (!isset($errors)) {
     $statement->bindParam(':room_id', $_SESSION['roomId'], PDO::PARAM_INT);
     $statement->execute();
 
-    //insert last guest id and features into booking_features junction table
-    if ($_SESSION['selectedFeatures']) {
-        $_SESSION['selectedFeatures'] = [
-            'cashew' => 1,
-            'wine' => 2,
-            'dinner' => 3,
-        ];
-
-        foreach ($_SESSION['selectedFeatures'] as $featureId) {
-            $statement = $database->prepare('INSERT INTO booking_features (booking_id, feature_id) VALUES (:booking_id, :feature_id)');
-            $statement->bindParam(':booking_id', $lastGuestId);
-            $statement->bindParam(':feature_id', $featureId);
-            $statement->execute();
-        }
-    }
-
     // define the mapping from feature IDs to names
     $featureNames = [
         'cashew' => 1,
@@ -55,17 +37,22 @@ if (!isset($errors)) {
         'dinner' => 3,
     ];
 
-    if (!isset($selectedFeatures)) {
-        $selectedFeatures = [];
-    }
-
-    // replace the IDs in $selectedFeatures with their corresponding name to display in the JSON
-    $selectedFeatureNames = array_map(function ($featureId) use ($featureNames) {
-        return $featureNames[$featureId];
+    $selectedFeatures = array_map(function ($featureName) use ($featureNames) {
+        return ['id' => $featureNames[$featureName], 'name' => $featureName];
     }, $selectedFeatures);
 
-    // convert the array of feature names to a string
-    $featuresString = implode(", ", $selectedFeatureNames);
+
+    // insert last guest id and features into booking_features junction table
+    if (!isset($_SESSION['selectedFeatures'])) {
+        $selectedFeatures = [];
+    } else {
+        foreach ($selectedFeatures as $feature) {
+            $statement = $database->prepare('INSERT INTO booking_features (booking_id, feature_id) VALUES (:booking_id, :feature_id)');
+            $statement->bindParam(':booking_id', $lastGuestId);
+            $statement->bindParam(':feature_id', $feature['id']);
+            $statement->execute();
+        }
+    }
 
     // fetch the info for the json-array and calculate the total_cost of the users stay
     $statement = $database->prepare('SELECT hotel.island, hotel.hotel, bookings.id, bookings.arrival, bookings.departure, hotel.stars,
@@ -82,19 +69,11 @@ if (!isset($errors)) {
     $statement->execute();
     $lastBooking = $statement->fetch(PDO::FETCH_ASSOC);
 
-    // fetch the features for the last booking in its own query
-    $statement = $database->prepare('SELECT features.id, features.name, features.cost FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id');
-    $statement->bindParam(':booking_id', $lastBooking['id']);
+    $statement = $database->prepare('SELECT features.name, features.cost FROM booking_features LEFT JOIN features ON booking_features.feature_id = features.id WHERE booking_features.booking_id = :booking_id');
+    $statement->bindParam(':booking_id', $lastGuestId);
     $statement->execute();
     $features = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // fetch cost for features to display on site
-    $query = $database->prepare("SELECT id, cost FROM features");
-    $query->execute();
-    $featurePrices = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    // create an associative array where the keys are the feature IDs and the values are the feature names
-    $featureNames = [];
 
     foreach ($features as $feature) {
         $featureNames[] = [
@@ -102,16 +81,12 @@ if (!isset($errors)) {
             'cost' => $feature['cost']
         ];
     }
-    // make the 30% discount also get applied to the json-file
-    if ($_SESSION['stayLength'] >= 3) {
-        $lastBooking['total_cost'] = round($lastBooking['total_cost'] * 0.7);
-    }
 
-    // define the total cost for the message
-    $totalCost = $_SESSION['totalCost'];
+    // // define the total cost for the message
+    // $totalCost = $_SESSION['totalCost'];
 
     // include the feature names in the message
-    $message = "<strong>Congratulations " . $_SESSION['firstname'] . "</strong> " . $_SESSION['lastname'] . "! You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven.";
+    $message = "<strong>Congratulations " . $_SESSION['firstname'] . " " . $_SESSION['lastname'] . "!</strong> You have booked a  " . $_SESSION['roomType'] . " room at Harvest Haven.";
 
     // create object from queries
     $response = [
@@ -121,8 +96,7 @@ if (!isset($errors)) {
         'departure_date' => $_SESSION['departure'],
         'total_cost' => $_SESSION['totalCost'],
         'stars' => $_SESSION['stars'],
-        // Select from features with its own query
-        'features' => $featureNames ?? [],
+        'features' => $features ?? [],
         'additional_info' => [
             'greeting' => "Thank you for choosing Harvest Haven",
             'imageUrl' => "No image at the moment"

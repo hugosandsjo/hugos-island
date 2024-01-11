@@ -63,7 +63,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
 
     // check if date is not available
     if (!isDateAvailable($arrival, $departure, $roomId)) {
-        $errors[] = "The selected dates are already booked. Please choose a different date.";
+        $errors[] = "The selected dates are already booked. Please choose a different date." . '<br>';
     }
 
     // use an associative array to map feature names to their costs
@@ -76,17 +76,20 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
     // initate feature cost
     $featuresTotal = (int) 0;
 
+    // create arrays for features
     if (isset($_POST['features'])) {
         $selectedFeatures = $_POST['features'];
+        $selectedFeatureDetails = [];
         foreach ($selectedFeatures as $featureName) {
             if (isset($featurePrices[$featureName])) {
                 $featuresTotal += $featurePrices[$featureName];
+                // Store both the feature ID and the feature name
+                $selectedFeatureDetails[] = ['id' => $featureNames[$featureName], 'name' => $featureName];
             }
         }
     } else {
         $selectedFeatures = [];
     }
-
 
     // calculate totalcost = the basecost of the room multiplied with lenght of stay + all the feature costs
     $totalCost = $roomCost * $stayLength + $featuresTotal;
@@ -107,8 +110,8 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['arri
         $_SESSION['stayLength'] = $stayLength;
         $_SESSION['roomType'] = $roomType;
         $_SESSION['selectedFeatures'] = $selectedFeatures;
-        $_SESSION['response'] = $response;
-        $_SESSION['client'] = $client;
+        // $_SESSION['response'] = $response;
+        // $_SESSION['client'] = $client;
         $_SESSION['errors'] = null;
         $_SESSION['island'] = 'Terra Verde';
         $_SESSION['hotel'] = 'Harvest Haven';
